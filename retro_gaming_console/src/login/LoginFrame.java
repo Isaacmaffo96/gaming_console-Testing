@@ -213,6 +213,7 @@ public class LoginFrame extends JFrame implements ActionListener{
 		
 		if(e.getSource()==guestButton) {
 			// TODO - guest user
+			
 		}
 	}	
 	
