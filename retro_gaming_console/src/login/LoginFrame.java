@@ -21,6 +21,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import games.GamesFrame;
+import games.GamesList;
+
 public class LoginFrame extends JFrame implements ActionListener{
 	
 	// welcome
@@ -36,7 +39,9 @@ public class LoginFrame extends JFrame implements ActionListener{
 	JLabel userIDLabel = new JLabel("Username:");
 	JLabel userPasswordLabel = new JLabel("Password:");
 	JLabel messageLabel = new JLabel();
+	SetupFacade setupFacade;
 	HashMap<String,Person> credentialsMap;
+	Person user;
 	// signup
 	JPanel signupPanel = new JPanel();
 	JLabel signupLabel = new JLabel("Don't have an account?");
@@ -45,7 +50,7 @@ public class LoginFrame extends JFrame implements ActionListener{
 	JButton guestButton = new JButton("Guest");
 	JLabel signupInfoLabel = new JLabel();
 	
-	public LoginFrame(HashMap<String,Person> credentialsMap) {
+	public LoginFrame(SetupFacade setupFacade) {
 		this.setTitle("Retro Gaming Console");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit from application
 		this.setResizable(false); //prevent from being resized
@@ -62,7 +67,7 @@ public class LoginFrame extends JFrame implements ActionListener{
 		this.setWelcome();
 		
 		// login panel
-		this.setLogin(credentialsMap);
+		this.setLogin(setupFacade);
 		
 		// signup panel
 		this.setSignup();
@@ -81,9 +86,10 @@ public class LoginFrame extends JFrame implements ActionListener{
 		this.add(welcomePanel);
 	}
 	
-	private void setLogin(HashMap<String,Person> credentialsMap) {
+	private void setLogin(SetupFacade setupFacade) {
 		
-		this.credentialsMap = credentialsMap; // {ID:password}
+		this.setupFacade = setupFacade;
+		this.credentialsMap = setupFacade.getCredentialsMap(); // {ID:password}
 		
 		// Panel
 		loginPanel.setBounds(60,65,400,170);
@@ -174,49 +180,6 @@ public class LoginFrame extends JFrame implements ActionListener{
 		//signupPanel.setOpaque(false);
 	}
 	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		
-		if(e.getSource()==resetButton) {
-			userIDField.setText("");
-			userPasswordField.setText("");
-			messageLabel.setText("");
-		}
-		
-		if(e.getSource()==loginButton) {
-			
-			String userID = userIDField.getText().toLowerCase();
-			String password = String.valueOf(userPasswordField.getPassword());
-			
-			if(credentialsMap.containsKey(userID)) {
-				if((credentialsMap.get(userID)).getPassword().equals(password)) {
-					messageLabel.setForeground(Color.green);
-					messageLabel.setText("Login successful");
-					// this.dispose(); // close this frame
-					// TODO - Open new Page (select game);
-				}
-				else {
-					messageLabel.setForeground(Color.red);
-					messageLabel.setText("Wrong password");
-				}
-
-			}
-			else {
-				messageLabel.setForeground(Color.red);
-				messageLabel.setText("username not found");
-			}
-		}
-		
-		if(e.getSource()==signupButton) {
-			SignupFrame signupFrame = new SignupFrame(credentialsMap);
-		}
-		
-		if(e.getSource()==guestButton) {
-			// TODO - guest user
-			
-		}
-	}	
-	
 	private void setIcon() {
 		ImageIcon image = new ImageIcon("RetroGamingLogo.jpeg");
 		this.setIconImage(image.getImage()); //change icon
@@ -239,4 +202,52 @@ public class LoginFrame extends JFrame implements ActionListener{
 		
 	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		if(e.getSource()==resetButton) {
+			userIDField.setText("");
+			userPasswordField.setText("");
+			messageLabel.setText("");
+		}
+		
+		if(e.getSource()==loginButton) {
+			
+			String userID = userIDField.getText().toLowerCase();
+			String password = String.valueOf(userPasswordField.getPassword());
+			
+			if(credentialsMap.containsKey(userID)) {
+				if((credentialsMap.get(userID)).getPassword().equals(password)) {
+					messageLabel.setForeground(Color.green);
+					messageLabel.setText("Login successful");
+					// this.dispose(); // close this frame
+					// TODO - Open new Page (select game);
+					user = credentialsMap.get(userID);
+					this.dispose(); // close this frame
+					GamesFrame gamesFrame = new GamesFrame(user, setupFacade);
+				}
+				else {
+					messageLabel.setForeground(Color.red);
+					messageLabel.setText("Wrong password");
+				}
+
+			}
+			else {
+				messageLabel.setForeground(Color.red);
+				messageLabel.setText("Username not found");
+			}
+		}
+		
+		if(e.getSource()==signupButton) {
+			SignupFrame signupFrame = new SignupFrame(credentialsMap);
+		}
+		
+		if(e.getSource()==guestButton) {
+			user = credentialsMap.get("guest");
+			user.getScores().resetScores();
+			this.dispose(); // close this frame
+			GamesFrame gamesFrame = new GamesFrame(user, setupFacade);
+		}
+	}	
+	
 }
