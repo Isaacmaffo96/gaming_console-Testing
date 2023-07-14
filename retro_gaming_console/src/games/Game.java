@@ -50,8 +50,7 @@ public class Game {
 	}
 
 	public void setMaxscore(int maxscore) {
-		if (maxscore> this.maxscore)
-			this.maxscore = maxscore;
+		this.maxscore = maxscore;
 	}
 
 }

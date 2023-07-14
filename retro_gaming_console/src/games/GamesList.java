@@ -18,8 +18,8 @@ public class GamesList {
 		game1.setIconByPath("snake.png");
 		gamesList.add(game1);
 		
-		Game game2 = new Game("Minesweeper",10);
-		game2.setIconByPath("Minesweeper.png");
+		Game game2 = new Game("TicTacToe",4);
+		game2.setIconByPath("tictactoe.png");
 		gamesList.add(game2);
 
 	}

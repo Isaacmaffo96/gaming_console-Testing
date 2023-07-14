@@ -20,6 +20,7 @@ import javax.swing.SwingConstants;
 
 import login.Person;
 import snake.SnakeGame;
+import tictactoe.TicTacToeGame;
 
 public class GamesFrame extends JFrame implements ActionListener{
 	
@@ -146,7 +147,7 @@ public class GamesFrame extends JFrame implements ActionListener{
 		game2Button.addActionListener(this);
 		
 		// High score
-		game2HighScoreLabel = new JLabel("Global High Score: " + gamesList.get(0).getMaxscore(), SwingConstants.CENTER);
+		game2HighScoreLabel = new JLabel("Global High Score: " + gamesList.get(1).getMaxscore(), SwingConstants.CENTER);
 		game2HighScoreLabel.setBounds(0,114,185,25);
 		game2HighScoreLabel.setFont(new Font(null, Font.PLAIN, 17));
 		game2HighScoreLabel.setForeground(Color.white);
@@ -251,7 +252,7 @@ public class GamesFrame extends JFrame implements ActionListener{
 		}
 		
 		if(e.getSource()==game2Button) {
-			// TODO - Open Game 2
+			new TicTacToeGame(gamesList.get(0),user,this);
 		}
 	}
 

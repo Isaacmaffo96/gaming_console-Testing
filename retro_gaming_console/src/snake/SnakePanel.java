@@ -34,16 +34,19 @@ public class SnakePanel extends JPanel implements ActionListener{
 		this.addKeyListener(new MyKeyAdapter());
 		startGame();
 	}
+	
 	public void startGame() {
 		newApple();
 		running = true;
 		timer = new Timer(DELAY,this);
 		timer.start();
 	}
+	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		draw(g);
 	}
+	
 	public void draw(Graphics g) {
 		
 		if(running) {
@@ -76,10 +79,12 @@ public class SnakePanel extends JPanel implements ActionListener{
 		}
 		
 	}
+	
 	public void newApple(){
 		appleX = random.nextInt((int)(SCREEN_WIDTH/UNIT_SIZE))*UNIT_SIZE;
 		appleY = random.nextInt((int)(SCREEN_HEIGHT/UNIT_SIZE))*UNIT_SIZE;
 	}
+	
 	public void move(){
 		for(int i = bodyParts;i>0;i--) {
 			x[i] = x[i-1];
@@ -102,6 +107,7 @@ public class SnakePanel extends JPanel implements ActionListener{
 		}
 		
 	}
+	
 	public void checkApple() {
 		if((x[0] == appleX) && (y[0] == appleY)) {
 			bodyParts++;
@@ -109,6 +115,7 @@ public class SnakePanel extends JPanel implements ActionListener{
 			newApple();
 		}
 	}
+	
 	public void checkCollisions() {
 		//checks if head collides with body
 		for(int i = bodyParts;i>0;i--) {
@@ -137,6 +144,7 @@ public class SnakePanel extends JPanel implements ActionListener{
 			timer.stop();
 		}
 	}
+	
 	public void gameOver(Graphics g) {
 		//Score
 		score = applesEaten;
@@ -164,6 +172,7 @@ public class SnakePanel extends JPanel implements ActionListener{
 		g.drawString("Game Over", (SCREEN_WIDTH - metrics2.stringWidth("Game Over"))/2, SCREEN_HEIGHT/2);
 
 	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
