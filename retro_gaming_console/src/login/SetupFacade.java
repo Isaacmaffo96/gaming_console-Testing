@@ -23,11 +23,13 @@ public class SetupFacade {
 			setupFacadeInstance = new SetupFacade();
 		return setupFacadeInstance;
 	}
-
+		
+	// login info {username:Person}
 	public HashMap<String,Person> getCredentialsMap() {
 		return credentialsMap.getLoginCredentials();
 	}
-
+	
+	// available games list
 	public ArrayList<Game> getGamesList() {
 		return gamesList.getGamesList();
 	}

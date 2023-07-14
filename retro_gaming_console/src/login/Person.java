@@ -14,16 +14,19 @@ public class Person {
 	private String password;
 	private Scores scores;
 	
-	
-	Person(String name, String surname, String username, LocalDate dateOfBirth, String mail, String password) {
-		super();
+
+	Person(String name, String surname, String username, LocalDate dateOfBirth, String mail, String password, Scores scores) {
 		this.name = name;
 		this.surname = surname;
 		this.username = username;
 		this.dateOfBirth = dateOfBirth;
 		this.mail = mail;
 		this.password = password;
-		this.scores = new Scores();
+		this.scores = scores;
+	}
+
+	Person(String name, String surname, String username, LocalDate dateOfBirth, String mail, String password) {
+		this(name, surname, username, dateOfBirth, mail, password, new Scores());
 	}
 
 

@@ -1,7 +1,6 @@
 package games;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 
 public class Game {
 	
@@ -9,17 +8,13 @@ public class Game {
 	private int maxscore;
 	private ImageIcon icon;
 	
-	Game(String name, ImageIcon icon, int maxscore) {
+	Game(String name, int maxscore) {
 		this.name = name;
 		this.maxscore = maxscore;
 	}
 	
-	Game(String name, ImageIcon icon) {
-		this(name, icon, 0);
-	}
-	
-	Game(String name) {
-		this(name, null, 0);
+	public Game(String name) {
+		this(name, 0);
 	}
 
 	public String getName() {

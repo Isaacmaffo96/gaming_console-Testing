@@ -22,7 +22,6 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 import games.GamesFrame;
-import games.GamesList;
 
 public class LoginFrame extends JFrame implements ActionListener{
 	
@@ -224,7 +223,7 @@ public class LoginFrame extends JFrame implements ActionListener{
 					// TODO - Open new Page (select game);
 					user = credentialsMap.get(userID);
 					this.dispose(); // close this frame
-					GamesFrame gamesFrame = new GamesFrame(user, setupFacade);
+					GamesFrame gamesFrame = new GamesFrame(user, setupFacade.getGamesList());
 				}
 				else {
 					messageLabel.setForeground(Color.red);
@@ -246,7 +245,7 @@ public class LoginFrame extends JFrame implements ActionListener{
 			user = credentialsMap.get("guest");
 			user.getScores().resetScores();
 			this.dispose(); // close this frame
-			GamesFrame gamesFrame = new GamesFrame(user, setupFacade);
+			GamesFrame gamesFrame = new GamesFrame(user, setupFacade.getGamesList());
 		}
 	}	
 	

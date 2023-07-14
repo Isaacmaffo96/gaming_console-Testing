@@ -2,9 +2,6 @@ package games;
 
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-
 public class GamesList {
 	
 	private ArrayList<Game> gamesList;
@@ -17,11 +14,11 @@ public class GamesList {
 	private void addGames() {
 		
 
-		Game game1 = new Game("Snake");
+		Game game1 = new Game("Snake",8);
 		game1.setIconByPath("snake.png");
 		gamesList.add(game1);
 		
-		Game game2 = new Game("Minesweeper");
+		Game game2 = new Game("Minesweeper",10);
 		game2.setIconByPath("Minesweeper.png");
 		gamesList.add(game2);
 

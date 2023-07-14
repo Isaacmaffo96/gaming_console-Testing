@@ -19,11 +19,10 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import login.Person;
-import login.SetupFacade;
+import snake.SnakeGame;
 
 public class GamesFrame extends JFrame implements ActionListener{
 	
-	private SetupFacade setupFacade;
 	private ArrayList<Game> gamesList;
 	private Person user;
 	
@@ -52,11 +51,10 @@ public class GamesFrame extends JFrame implements ActionListener{
 	private JLabel infoLabel;
 	
 	
-	public GamesFrame(Person user, SetupFacade setupFacade) {
+	public GamesFrame(Person user, ArrayList<Game> gamesList) {
 		
-		this.setupFacade = setupFacade;
 		this.user = user;
-		this.gamesList = setupFacade.getGamesList();
+		this.gamesList = gamesList;
 		
 		this.setTitle("Retro Gaming Console");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit from application
@@ -107,9 +105,10 @@ public class GamesFrame extends JFrame implements ActionListener{
 			game1Button = new JButton();
 		}
 		game1Button.setBounds(52,32,80,80);
+		game1Button.addActionListener(this);
 		
 		// High score
-		game1HighScoreLabel = new JLabel("High Score: " + gamesList.get(0).getMaxscore(), SwingConstants.CENTER);
+		game1HighScoreLabel = new JLabel("Global High Score: " + gamesList.get(0).getMaxscore(), SwingConstants.CENTER);
 		game1HighScoreLabel.setBounds(0,115,185,25);
 		game1HighScoreLabel.setFont(new Font(null, Font.PLAIN, 17));
 		game1HighScoreLabel.setForeground(Color.white);
@@ -144,9 +143,10 @@ public class GamesFrame extends JFrame implements ActionListener{
 			game2Button = new JButton();
 		}
 		game2Button.setBounds(52,32,80,80);
+		game2Button.addActionListener(this);
 		
 		// High score
-		game2HighScoreLabel = new JLabel("High Score: " + gamesList.get(0).getMaxscore(), SwingConstants.CENTER);
+		game2HighScoreLabel = new JLabel("Global High Score: " + gamesList.get(0).getMaxscore(), SwingConstants.CENTER);
 		game2HighScoreLabel.setBounds(0,114,185,25);
 		game2HighScoreLabel.setFont(new Font(null, Font.PLAIN, 17));
 		game2HighScoreLabel.setForeground(Color.white);
@@ -235,11 +235,24 @@ public class GamesFrame extends JFrame implements ActionListener{
 		}
 		
 	}
+	
+	public void refreshHighScores() {
+		game1UserHighScoreLabel.setText(game1.getName() + ": " + user.getScores().getGame1Score());
+		game2UserHighScoreLabel.setText(game2.getName() + ": " + user.getScores().getGame2Score());
+		game1HighScoreLabel.setText("Global High Score: " + gamesList.get(0).getMaxscore());
+		game2HighScoreLabel.setText("Global High Score: " + gamesList.get(1).getMaxscore());
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		
+		if(e.getSource()==game1Button) {
+			new SnakeGame(gamesList.get(0),user, this);
+		}
+		
+		if(e.getSource()==game2Button) {
+			// TODO - Open Game 2
+		}
 	}
 
 }
