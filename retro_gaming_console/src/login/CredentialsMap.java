@@ -19,7 +19,7 @@ public class CredentialsMap {
 		Person mario = new Person("Super", "Mario", "supermario", LocalDate.parse("1988-10-11"), "supermario@nintendo.com", "ItsmeMario!1", new Scores(8,5));
 		Person luigi = new Person("Luigi", "Mario", "luigi", LocalDate.parse("1986-09-25"), "luigi@nintendo.com", "Number1!", new Scores(2,4));
 		Person pacman = new Person("Pac", "Man", "pacman", LocalDate.parse("1980-01-15"), "pacman80@gmail.com", "Paku-Paku80", new Scores(5,4));
-		Person isaac = new Person("Isaac", "Maffeis", "isaacmaffo96", LocalDate.parse("1996-05-10"), "isaacmaffo96@gmail.com", "Im_1041473",new Scores(5,4));
+		Person isaac = new Person("Isaac", "Maffeis", "isaacmaffo96", LocalDate.parse("1996-05-10"), "isaacmaffo96@gmail.com", "Im_1041473",new Scores(4,5));
 		
 		credentialsMap.put(mario.getUsername(),mario);
 		credentialsMap.put(luigi.getUsername(),luigi);

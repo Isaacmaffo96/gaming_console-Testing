@@ -21,8 +21,8 @@ public class TicTacToeGame{
 	}
 
 	private void updateHighScores() {
-		if (score < user.getScores().getGame1Score()) {
-			user.getScores().setGame1Score(score);
+		if (score < user.getScores().getGame2Score()) {
+			user.getScores().setGame2Score(score);
 		}
 		if (score < game.getMaxscore()) {
 			game.setMaxscore(score);
@@ -44,7 +44,7 @@ public class TicTacToeGame{
 	}
 	
 	int getPersonalMaxScore() {
-		return user.getScores().getGame1Score();
+		return user.getScores().getGame2Score();
 	}
 	
 }

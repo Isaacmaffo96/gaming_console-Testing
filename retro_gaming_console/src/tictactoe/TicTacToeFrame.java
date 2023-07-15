@@ -13,7 +13,7 @@ public class TicTacToeFrame extends JFrame{
 		this.setTitle("Tic Tac Toe");
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setSize(500,500);
-		//this.setResizable(false);
+		this.setResizable(false);
 		//this.pack();
 		setIcon();
 		this.setVisible(true);

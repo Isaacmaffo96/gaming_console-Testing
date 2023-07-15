@@ -162,14 +162,9 @@ public class GamesFrame extends JFrame implements ActionListener{
 	}
 
 	private void setUserPanel() {
-		/*
-		private JLabel ;
-		private JLabel ;
-		private JLabel game2UserHighScoreLabel;
-		*/
+
 		userPanel = new JPanel();
 		userPanel.setBounds(570,270,220,135);
-		//userPanel.setBackground(Color.black);
 		userPanel.setOpaque(false);
 		
 		// name
@@ -190,7 +185,7 @@ public class GamesFrame extends JFrame implements ActionListener{
 		game1UserHighScoreLabel.setFont(new Font(null, Font.PLAIN, 17));
 		game1UserHighScoreLabel.setForeground(Color.white);
 		
-		// game 1 high score
+		// game 2 high score
 		game2UserHighScoreLabel = new JLabel(game2.getName() + ": " + user.getScores().getGame2Score());
 		game2UserHighScoreLabel.setBounds(35,80,180,25);
 		game2UserHighScoreLabel.setFont(new Font(null, Font.PLAIN, 17));
@@ -252,7 +247,7 @@ public class GamesFrame extends JFrame implements ActionListener{
 		}
 		
 		if(e.getSource()==game2Button) {
-			new TicTacToeGame(gamesList.get(0),user,this);
+			new TicTacToeGame(gamesList.get(1),user,this);
 		}
 	}
 
