@@ -215,12 +215,12 @@ public class LoginFrame extends JFrame implements ActionListener{
 			String userID = userIDField.getText().toLowerCase();
 			String password = String.valueOf(userPasswordField.getPassword());
 			
+			/*
 			if(credentialsMap.containsKey(userID)) {
 				if((credentialsMap.get(userID)).getPassword().equals(password)) {
 					messageLabel.setForeground(Color.green);
 					messageLabel.setText("Login successful");
 					// this.dispose(); // close this frame
-					// TODO - Open new Page (select game);
 					user = credentialsMap.get(userID);
 					this.dispose(); // close this frame
 					GamesFrame gamesFrame = new GamesFrame(user, setupFacade.getGamesList());
@@ -235,6 +235,40 @@ public class LoginFrame extends JFrame implements ActionListener{
 				messageLabel.setForeground(Color.red);
 				messageLabel.setText("Username not found");
 			}
+			*/
+			
+			// For MCDC Testing purposes
+			
+			if(!(credentialsMap.isEmpty()) &&
+					(((credentialsMap.containsKey(userID)) 
+					&& (credentialsMap.get(userID)).getPassword().equals(password)) 
+					|| (userID.equals("guest") && password.equals("guest")))){
+				
+				messageLabel.setForeground(Color.green);
+				messageLabel.setText("Login successful");
+				// this.dispose(); // close this frame
+				user = credentialsMap.get(userID);
+				this.dispose(); // close this frame
+				GamesFrame gamesFrame = new GamesFrame(user, setupFacade.getGamesList());
+				
+			}
+			
+			else if (!(credentialsMap.isEmpty()) &&
+					((credentialsMap.containsKey(userID) &&
+					!(credentialsMap.get(userID)).getPassword().equals(password))
+					|| (userID.equals("guest") && !(password.equals("guest"))))) {
+				
+				messageLabel.setForeground(Color.red);
+				messageLabel.setText("Wrong password");
+				
+			}
+			
+			else if (credentialsMap.isEmpty() ||
+					!(credentialsMap.containsKey(userID)) || !(userID.equals("guest"))) {
+				messageLabel.setForeground(Color.red);
+				messageLabel.setText("Username not found");
+			}
+			
 		}
 		
 		if(e.getSource()==signupButton) {

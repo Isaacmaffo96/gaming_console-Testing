@@ -15,9 +15,9 @@ public class main_test {
 				
 		SetupFacade setupFacade = SetupFacade.createSetupFacade();
 						
-		//LoginFrame loginFrame = new LoginFrame(setupFacade);
+		LoginFrame loginFrame = new LoginFrame(setupFacade);
 		// SignupFrame signupFrame = new SignupFrame(setupFacade.getCredentialsMap());
-		GamesFrame gamesFrame = new GamesFrame(setupFacade.getCredentialsMap().get("isaacmaffo96"), setupFacade.getGamesList());
+		// GamesFrame gamesFrame = new GamesFrame(setupFacade.getCredentialsMap().get("isaacmaffo96"), setupFacade.getGamesList());
 			
 	}
 
