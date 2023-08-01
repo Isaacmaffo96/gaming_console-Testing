@@ -1,4 +1,6 @@
 language: java
+jdk:
+- 17.0.7
 cache:
   directories:
   - $HOME/.m2
