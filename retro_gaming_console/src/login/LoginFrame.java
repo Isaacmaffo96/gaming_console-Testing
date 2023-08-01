@@ -48,6 +48,8 @@ public class LoginFrame extends JFrame implements ActionListener{
 	JLabel guestLabel = new JLabel("or continue as a guest*");
 	JButton guestButton = new JButton("Guest");
 	JLabel signupInfoLabel = new JLabel();
+	// Actions
+	LoginActions loginActions;
 	
 	public LoginFrame(SetupFacade setupFacade) {
 		this.setTitle("Retro Gaming Console");
@@ -70,6 +72,9 @@ public class LoginFrame extends JFrame implements ActionListener{
 		
 		// signup panel
 		this.setSignup();
+		
+		//Actions
+		loginActions = new LoginActions(this);
 
 		//pack(); // resize to accommodate all the components
 		this.setLayout(null); // custom layout
@@ -200,7 +205,7 @@ public class LoginFrame extends JFrame implements ActionListener{
 		}
 		
 	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -211,64 +216,7 @@ public class LoginFrame extends JFrame implements ActionListener{
 		}
 		
 		if(e.getSource()==loginButton) {
-			
-			String userID = userIDField.getText().toLowerCase();
-			String password = String.valueOf(userPasswordField.getPassword());
-			
-			/*
-			if(credentialsMap.containsKey(userID)) {
-				if((credentialsMap.get(userID)).getPassword().equals(password)) {
-					messageLabel.setForeground(Color.green);
-					messageLabel.setText("Login successful");
-					// this.dispose(); // close this frame
-					user = credentialsMap.get(userID);
-					this.dispose(); // close this frame
-					GamesFrame gamesFrame = new GamesFrame(user, setupFacade.getGamesList());
-				}
-				else {
-					messageLabel.setForeground(Color.red);
-					messageLabel.setText("Wrong password");
-				}
-
-			}
-			else {
-				messageLabel.setForeground(Color.red);
-				messageLabel.setText("Username not found");
-			}
-			*/
-			
-			// For MCDC Testing purposes
-			
-			if(!(credentialsMap.isEmpty()) &&
-					(((credentialsMap.containsKey(userID)) 
-					&& (credentialsMap.get(userID)).getPassword().equals(password)) 
-					|| (userID.equals("guest") && password.equals("guest")))){
-				
-				messageLabel.setForeground(Color.green);
-				messageLabel.setText("Login successful");
-				// this.dispose(); // close this frame
-				user = credentialsMap.get(userID);
-				this.dispose(); // close this frame
-				GamesFrame gamesFrame = new GamesFrame(user, setupFacade.getGamesList());
-				
-			}
-			
-			else if (!(credentialsMap.isEmpty()) &&
-					((credentialsMap.containsKey(userID) &&
-					!(credentialsMap.get(userID)).getPassword().equals(password))
-					|| (userID.equals("guest") && !(password.equals("guest"))))) {
-				
-				messageLabel.setForeground(Color.red);
-				messageLabel.setText("Wrong password");
-				
-			}
-			
-			else if (credentialsMap.isEmpty() ||
-					!(credentialsMap.containsKey(userID)) || !(userID.equals("guest"))) {
-				messageLabel.setForeground(Color.red);
-				messageLabel.setText("Username not found");
-			}
-			
+			loginActions.loginButtonAction();
 		}
 		
 		if(e.getSource()==signupButton) {
@@ -276,7 +224,7 @@ public class LoginFrame extends JFrame implements ActionListener{
 		}
 		
 		if(e.getSource()==guestButton) {
-			user = credentialsMap.get("guest");
+			user = credentialsMap.get("guestUser");
 			user.getScores().resetScores();
 			this.dispose(); // close this frame
 			GamesFrame gamesFrame = new GamesFrame(user, setupFacade.getGamesList());

@@ -29,6 +29,15 @@ public class SetupFacade {
 		return credentialsMap.getLoginCredentials();
 	}
 	
+	public void initMap() {
+		credentialsMap.addDefault();
+		credentialsMap.addGuest();
+	}
+	
+	public void resetMap() {
+		credentialsMap.resetMap();
+	}
+	
 	// available games list
 	public ArrayList<Game> getGamesList() {
 		return gamesList.getGamesList();

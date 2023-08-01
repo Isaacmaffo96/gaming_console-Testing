@@ -1,14 +1,11 @@
 package main;
 
-import games.Game;
 import games.GamesFrame;
 import login.SignupFrame;
-import snake.SnakeGame;
-import tictactoe.TicTacToeFrame;
 import login.LoginFrame;
 import login.SetupFacade;
 
-public class main_test {
+public class Main_test {
 
 	public static void main(String[] args) {
 		

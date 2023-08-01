@@ -1,0 +1,1327 @@
+<?xml version="1.0" encoding="UTF-8"?><TestSessionContainer xmlns="http://www.codecover.org/xml/testsession-container" Date="1690834927088" TestSessionContainerId="70cbd4c3-37fa-454e-8234-150ada4fa823" version="1.0">
+    <SrcFileList>
+        <SrcFile Content="package login;&#13;&#10;&#13;&#10;import java.awt.Color;&#13;&#10;import java.awt.Font;&#13;&#10;import java.awt.Graphics;&#13;&#10;import java.awt.Image;&#13;&#10;import java.awt.event.ActionEvent;&#13;&#10;import java.awt.event.ActionListener;&#13;&#10;import java.io.File;&#13;&#10;import java.io.IOException;&#13;&#10;import java.util.HashMap;&#13;&#10;&#13;&#10;import javax.imageio.ImageIO;&#13;&#10;import javax.swing.BorderFactory;&#13;&#10;import javax.swing.ImageIcon;&#13;&#10;import javax.swing.JButton;&#13;&#10;import javax.swing.JFrame;&#13;&#10;import javax.swing.JLabel;&#13;&#10;import javax.swing.JPanel;&#13;&#10;import javax.swing.JPasswordField;&#13;&#10;import javax.swing.JTextField;&#13;&#10;import javax.swing.border.Border;&#13;&#10;&#13;&#10;import games.GamesFrame;&#13;&#10;&#13;&#10;public class LoginFrame extends JFrame implements ActionListener{&#13;&#10;&#9;&#13;&#10;&#9;// welcome&#13;&#10;&#9;JPanel welcomePanel = new JPanel();&#13;&#10;&#9;JLabel welcomeLabel = new JLabel(&quot;Welcome to the Retro Gaming Console&quot;);&#13;&#10;&#9;// login&#13;&#10;&#9;JLabel loginInfoLabel = new JLabel(&quot;Please login to your account&quot;);&#13;&#10;&#9;JPanel loginPanel = new JPanel();&#13;&#10;&#9;JButton loginButton = new JButton(&quot;Log in&quot;);&#13;&#10;&#9;JButton resetButton = new JButton(&quot;Reset&quot;);&#13;&#10;&#9;JTextField userIDField = new JTextField();&#13;&#10;&#9;JPasswordField userPasswordField = new JPasswordField();&#13;&#10;&#9;JLabel userIDLabel = new JLabel(&quot;Username:&quot;);&#13;&#10;&#9;JLabel userPasswordLabel = new JLabel(&quot;Password:&quot;);&#13;&#10;&#9;JLabel messageLabel = new JLabel();&#13;&#10;&#9;SetupFacade setupFacade;&#13;&#10;&#9;HashMap&lt;String,Person&gt; credentialsMap;&#13;&#10;&#9;Person user;&#13;&#10;&#9;// signup&#13;&#10;&#9;JPanel signupPanel = new JPanel();&#13;&#10;&#9;JLabel signupLabel = new JLabel(&quot;Don't have an account?&quot;);&#13;&#10;&#9;JButton signupButton = new JButton(&quot;Sign up&quot;);&#13;&#10;&#9;JLabel guestLabel = new JLabel(&quot;or continue as a guest*&quot;);&#13;&#10;&#9;JButton guestButton = new JButton(&quot;Guest&quot;);&#13;&#10;&#9;JLabel signupInfoLabel = new JLabel();&#13;&#10;&#9;&#13;&#10;&#9;public LoginFrame(SetupFacade setupFacade) {&#13;&#10;&#9;&#9;this.setTitle(&quot;Retro Gaming Console&quot;);&#13;&#10;&#9;&#9;this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit from application&#13;&#10;&#9;&#9;this.setResizable(false); //prevent from being resized&#13;&#10;&#9;&#9;this.setSize(900,506); //sets the x-dimension, and y-dimension&#13;&#10;&#9;&#9;this.setLocationRelativeTo(null); // position of the frame center of the screen&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;// icon&#13;&#10;&#9;&#9;this.setIcon();&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;// background image&#13;&#10;&#9;&#9;this.setBackground();&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;// Welcome Panel&#13;&#10;&#9;&#9;this.setWelcome();&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;// login panel&#13;&#10;&#9;&#9;this.setLogin(setupFacade);&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;// signup panel&#13;&#10;&#9;&#9;this.setSignup();&#13;&#10;&#13;&#10;&#9;&#9;//pack(); // resize to accommodate all the components&#13;&#10;&#9;&#9;this.setLayout(null); // custom layout&#13;&#10;&#9;&#9;this.setVisible(true); // frame visible&#9;&#13;&#10;&#9;}&#13;&#10;&#9;&#13;&#10;&#9;private void setWelcome() {&#13;&#10;&#9;&#9;welcomeLabel.setForeground(new Color(0xFFFFF)); //set font color of text&#13;&#10;&#9;&#9;welcomeLabel.setFont(new Font(&quot;&quot;, Font.PLAIN, 20)); // font&#13;&#10;&#9;&#9;welcomePanel.add(welcomeLabel);&#13;&#10;&#9;&#9;welcomePanel.setBounds(60, 20, 400, 40);&#13;&#10;&#9;&#9;welcomePanel.setOpaque(false); // panel color transparent&#13;&#10;&#9;&#9;this.add(welcomePanel);&#13;&#10;&#9;}&#13;&#10;&#9;&#13;&#10;&#9;private void setLogin(SetupFacade setupFacade) {&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;this.setupFacade = setupFacade;&#13;&#10;&#9;&#9;this.credentialsMap = setupFacade.getCredentialsMap(); // {ID:password}&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;// Panel&#13;&#10;&#9;&#9;loginPanel.setBounds(60,65,400,170);&#13;&#10;&#9;&#9;loginPanel.setLayout(null);&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;// Label&#13;&#10;&#9;&#9;Font fontFields = new Font(&quot;&quot;, Font.PLAIN, 14);&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;loginInfoLabel.setBounds(95, 0, 250, 20);&#9;&#13;&#10;&#9;&#9;loginInfoLabel.setForeground(new Color(0xFFFFF)); //set font color of text&#13;&#10;&#9;&#9;loginInfoLabel.setFont(new Font(&quot;&quot;, Font.PLAIN, 17)); // font&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;userIDLabel.setBounds(25,30,75,25);&#13;&#10;&#9;&#9;userIDLabel.setForeground(new Color(0xFFFFF)); //set font color of text&#13;&#10;&#9;&#9;userIDLabel.setFont(fontFields); // font&#13;&#10;&#9;&#9;userIDField.setBounds(95,30,208,25);&#13;&#10;&#9;&#9;userIDField.setFont(fontFields); // font&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;userPasswordLabel.setBounds(25,70,75,25);&#13;&#10;&#9;&#9;userPasswordLabel.setForeground(new Color(0xFFFFF)); //set font color of text&#13;&#10;&#9;&#9;userPasswordLabel.setFont(fontFields); // font&#13;&#10;&#9;&#9;userPasswordField.setBounds(95,70,208,25);&#13;&#10;&#9;&#9;userPasswordField.setFont(fontFields); // font&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;messageLabel.setBounds(125,138,250,35);&#13;&#10;&#9;&#9;messageLabel.setFont(new Font(null,Font.PLAIN,17));&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;loginButton.setBounds(95,110,104,25);&#13;&#10;&#9;&#9;loginButton.setFont(fontFields); // font&#13;&#10;&#9;&#9;loginButton.setFocusable(false);&#13;&#10;&#9;&#9;loginButton.addActionListener(this);&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;resetButton.setBounds(199,110,104,25);&#13;&#10;&#9;&#9;resetButton.setFont(fontFields); // font&#13;&#10;&#9;&#9;resetButton.setFocusable(false);&#13;&#10;&#9;&#9;resetButton.addActionListener(this);&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;loginPanel.add(loginInfoLabel);&#13;&#10;&#9;&#9;loginPanel.add(userIDLabel);&#13;&#10;&#9;&#9;loginPanel.add(userPasswordLabel);&#13;&#10;&#9;&#9;loginPanel.add(messageLabel);&#13;&#10;&#9;&#9;loginPanel.add(userIDField);&#13;&#10;&#9;&#9;loginPanel.add(userPasswordField);&#13;&#10;&#9;&#9;loginPanel.add(loginButton);&#13;&#10;&#9;&#9;loginPanel.add(resetButton);&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;loginPanel.setOpaque(false);&#13;&#10;&#9;&#9;this.getRootPane().setDefaultButton(loginButton); // default triggered with enter key&#13;&#10;&#9;&#9;this.add(loginPanel);&#13;&#10;&#9;}&#13;&#10;&#9;&#13;&#10;&#9;private void setSignup() {&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;Font fontFields = new Font(&quot;&quot;, Font.PLAIN, 14);&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;signupPanel.setBounds(115, 235, 280, 120);&#13;&#10;&#9;&#9;signupPanel.setLayout(null);&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;signupLabel.setBounds(20, 10, 250, 25);&#13;&#10;&#9;&#9;signupLabel.setForeground(new Color(0xFFFFF)); //set font color of text&#13;&#10;&#9;&#9;signupLabel.setFont(fontFields); // font&#13;&#10;&#9;&#9;signupButton.setBounds(175, 10, 90, 25);&#13;&#10;&#9;&#9;signupButton.setFont(fontFields); // font&#13;&#10;&#9;&#9;signupButton.addActionListener(this);&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;guestLabel.setBounds(20, 40, 250, 25);&#13;&#10;&#9;&#9;guestLabel.setForeground(new Color(0xFFFFF)); //set font color of text&#13;&#10;&#9;&#9;guestLabel.setFont(fontFields); // font&#13;&#10;&#9;&#9;guestButton.setBounds(175, 40, 90, 25);&#13;&#10;&#9;&#9;guestButton.setFont(fontFields); // font&#13;&#10;&#9;&#9;guestButton.addActionListener(this);&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;signupInfoLabel.setBounds(20, 60, 250, 50);&#13;&#10;&#9;&#9;signupInfoLabel.setText(&quot;&lt;html&gt;* Having an account allows you &lt;br&gt; to save your best scores&lt;/html&gt;&quot;);&#13;&#10;&#9;&#9;signupInfoLabel.setFont(fontFields); // font&#13;&#10;&#9;&#9;signupInfoLabel.setForeground(new Color(0xF400A1)); //set font color of text&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;signupPanel.add(signupLabel);&#13;&#10;&#9;&#9;signupPanel.add(signupButton);&#13;&#10;&#9;&#9;signupPanel.add(guestLabel);&#13;&#10;&#9;&#9;signupPanel.add(guestButton);&#13;&#10;&#9;&#9;signupPanel.add(signupInfoLabel);&#13;&#10;&#9;&#9;this.add(signupPanel);&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;signupPanel.setBackground(new Color(0x172d4d));&#13;&#10;&#9;&#9;Border signupPanelBorder = BorderFactory.createLineBorder(Color.CYAN, 2); // border cyan 2 pxl&#13;&#10;&#9;&#9;signupPanel.setBorder(signupPanelBorder);&#13;&#10;&#9;&#9;//signupPanel.setOpaque(false);&#13;&#10;&#9;}&#13;&#10;&#9;&#13;&#10;&#9;private void setIcon() {&#13;&#10;&#9;&#9;ImageIcon image = new ImageIcon(&quot;RetroGamingLogo.jpeg&quot;);&#13;&#10;&#9;&#9;this.setIconImage(image.getImage()); //change icon&#13;&#10;&#9;}&#13;&#10;&#9;&#13;&#10;&#9;private void setBackground() {&#13;&#10;&#9;&#9;try {&#13;&#10;&#9;&#9;&#9;Image background_image = ImageIO.read(new File(&quot;LoginBackground.jpg&quot;));&#13;&#10;&#9;&#9;&#9;this.setContentPane(new JPanel() {&#13;&#10;&#9;&#9;         @Override&#13;&#10;&#9;&#9;         public void paintComponent(Graphics g) {&#13;&#10;&#9;&#9;            super.paintComponent(g);&#13;&#10;&#9;&#9;            g.drawImage(background_image, 0, 0, null);&#13;&#10;&#9;&#9;         }&#13;&#10;&#9;&#9;      });&#13;&#10;&#9;&#9;} catch (IOException e) {&#13;&#10;&#9;&#9;&#9;this.getContentPane().setBackground(new Color(0x123456)); //change color of background&#13;&#10;&#9;&#9;&#9;e.printStackTrace();&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;&#13;&#10;&#9;}&#13;&#10;&#13;&#10;&#9;@Override&#13;&#10;&#9;public void actionPerformed(ActionEvent e) {&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;if(e.getSource()==resetButton) {&#13;&#10;&#9;&#9;&#9;userIDField.setText(&quot;&quot;);&#13;&#10;&#9;&#9;&#9;userPasswordField.setText(&quot;&quot;);&#13;&#10;&#9;&#9;&#9;messageLabel.setText(&quot;&quot;);&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;if(e.getSource()==loginButton) {&#13;&#10;&#9;&#9;&#9;&#13;&#10;&#9;&#9;&#9;String userID = userIDField.getText().toLowerCase();&#13;&#10;&#9;&#9;&#9;String password = String.valueOf(userPasswordField.getPassword());&#13;&#10;&#9;&#9;&#9;&#13;&#10;&#9;&#9;&#9;/*&#13;&#10;&#9;&#9;&#9;if(credentialsMap.containsKey(userID)) {&#13;&#10;&#9;&#9;&#9;&#9;if((credentialsMap.get(userID)).getPassword().equals(password)) {&#13;&#10;&#9;&#9;&#9;&#9;&#9;messageLabel.setForeground(Color.green);&#13;&#10;&#9;&#9;&#9;&#9;&#9;messageLabel.setText(&quot;Login successful&quot;);&#13;&#10;&#9;&#9;&#9;&#9;&#9;// this.dispose(); // close this frame&#13;&#10;&#9;&#9;&#9;&#9;&#9;user = credentialsMap.get(userID);&#13;&#10;&#9;&#9;&#9;&#9;&#9;this.dispose(); // close this frame&#13;&#10;&#9;&#9;&#9;&#9;&#9;GamesFrame gamesFrame = new GamesFrame(user, setupFacade.getGamesList());&#13;&#10;&#9;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;&#9;else {&#13;&#10;&#9;&#9;&#9;&#9;&#9;messageLabel.setForeground(Color.red);&#13;&#10;&#9;&#9;&#9;&#9;&#9;messageLabel.setText(&quot;Wrong password&quot;);&#13;&#10;&#9;&#9;&#9;&#9;}&#13;&#10;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;else {&#13;&#10;&#9;&#9;&#9;&#9;messageLabel.setForeground(Color.red);&#13;&#10;&#9;&#9;&#9;&#9;messageLabel.setText(&quot;Username not found&quot;);&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;*/&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#13;&#10;&#9;&#9;&#9;// For MCDC Testing purposes&#13;&#10;&#9;&#9;&#9;&#13;&#10;&#9;&#9;&#9;if(!(credentialsMap.isEmpty()) &amp;&amp;&#13;&#10;&#9;&#9;&#9;&#9;&#9;(((credentialsMap.containsKey(userID)) &#13;&#10;&#9;&#9;&#9;&#9;&#9;&amp;&amp; (credentialsMap.get(userID)).getPassword().equals(password)) &#13;&#10;&#9;&#9;&#9;&#9;&#9;|| (userID.equals(&quot;guest&quot;) &amp;&amp; password.equals(&quot;guest&quot;)))){&#13;&#10;&#9;&#9;&#9;&#9;&#13;&#10;&#9;&#9;&#9;&#9;messageLabel.setForeground(Color.green);&#13;&#10;&#9;&#9;&#9;&#9;messageLabel.setText(&quot;Login successful&quot;);&#13;&#10;&#9;&#9;&#9;&#9;// this.dispose(); // close this frame&#13;&#10;&#9;&#9;&#9;&#9;user = credentialsMap.get(userID);&#13;&#10;&#9;&#9;&#9;&#9;this.dispose(); // close this frame&#13;&#10;&#9;&#9;&#9;&#9;GamesFrame gamesFrame = new GamesFrame(user, setupFacade.getGamesList());&#13;&#10;&#9;&#9;&#9;&#9;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;&#13;&#10;&#9;&#9;&#9;else if (!(credentialsMap.isEmpty()) &amp;&amp;&#13;&#10;&#9;&#9;&#9;&#9;&#9;((credentialsMap.containsKey(userID) &amp;&amp;&#13;&#10;&#9;&#9;&#9;&#9;&#9;!(credentialsMap.get(userID)).getPassword().equals(password))&#13;&#10;&#9;&#9;&#9;&#9;&#9;|| (userID.equals(&quot;guest&quot;) &amp;&amp; !(password.equals(&quot;guest&quot;))))) {&#13;&#10;&#9;&#9;&#9;&#9;&#13;&#10;&#9;&#9;&#9;&#9;messageLabel.setForeground(Color.red);&#13;&#10;&#9;&#9;&#9;&#9;messageLabel.setText(&quot;Wrong password&quot;);&#13;&#10;&#9;&#9;&#9;&#9;&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;&#13;&#10;&#9;&#9;&#9;else if (credentialsMap.isEmpty() ||&#13;&#10;&#9;&#9;&#9;&#9;&#9;!(credentialsMap.containsKey(userID)) || !(userID.equals(&quot;guest&quot;))) {&#13;&#10;&#9;&#9;&#9;&#9;messageLabel.setForeground(Color.red);&#13;&#10;&#9;&#9;&#9;&#9;messageLabel.setText(&quot;Username not found&quot;);&#13;&#10;&#9;&#9;&#9;}&#13;&#10;&#9;&#9;&#9;&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;if(e.getSource()==signupButton) {&#13;&#10;&#9;&#9;&#9;SignupFrame signupFrame = new SignupFrame(credentialsMap);&#13;&#10;&#9;&#9;}&#13;&#10;&#9;&#9;&#13;&#10;&#9;&#9;if(e.getSource()==guestButton) {&#13;&#10;&#9;&#9;&#9;user = credentialsMap.get(&quot;guest&quot;);&#13;&#10;&#9;&#9;&#9;user.getScores().resetScores();&#13;&#10;&#9;&#9;&#9;this.dispose(); // close this frame&#13;&#10;&#9;&#9;&#9;GamesFrame gamesFrame = new GamesFrame(user, setupFacade.getGamesList());&#13;&#10;&#9;&#9;}&#13;&#10;&#9;}&#9;&#13;&#10;&#9;&#13;&#10;}&#13;&#10;" Filename="LoginFrame.java" Intrnl_Id="1"/>
+    </SrcFileList>
+    <CritList>
+        <CritListEntry Name="org.codecover.model.utils.criteria.LoopCoverage" PluginName="org.codecover"/>
+        <CritListEntry Name="org.codecover.model.utils.criteria.QMOCoverage" PluginName="org.codecover"/>
+        <CritListEntry Name="org.codecover.model.utils.criteria.ConditionCoverage" PluginName="org.codecover"/>
+        <CritListEntry Name="org.codecover.model.utils.criteria.BranchCoverage" PluginName="org.codecover"/>
+        <CritListEntry Name="org.codecover.model.utils.criteria.SynchronizedStatementCoverage" PluginName="org.codecover"/>
+        <CritListEntry Name="org.codecover.model.utils.criteria.StatementCoverage" PluginName="org.codecover"/>
+    </CritList>
+    <BoolOpList>
+        <BoolOp Arity="2" Intrnl_Id="2" Name="conditional and (&amp;&amp;)">
+            <BoolAssgnmntBoolMapList>
+                <MapEntry BoolAssgnmnt="02" Value="false"/>
+                <MapEntry BoolAssgnmnt="10" Value="false"/>
+                <MapEntry BoolAssgnmnt="11" Value="true"/>
+            </BoolAssgnmntBoolMapList>
+        </BoolOp>
+        <BoolOp Arity="2" Intrnl_Id="3" Name="conditional or (||)">
+            <BoolAssgnmntBoolMapList>
+                <MapEntry BoolAssgnmnt="00" Value="false"/>
+                <MapEntry BoolAssgnmnt="01" Value="true"/>
+                <MapEntry BoolAssgnmnt="12" Value="true"/>
+            </BoolAssgnmntBoolMapList>
+        </BoolOp>
+        <BoolOp Arity="1" Intrnl_Id="4" Name="not (!)">
+            <BoolAssgnmntBoolMapList>
+                <MapEntry BoolAssgnmnt="1" Value="false"/>
+                <MapEntry BoolAssgnmnt="0" Value="true"/>
+            </BoolAssgnmntBoolMapList>
+        </BoolOp>
+    </BoolOpList>
+    <HierarchyLvlTypeList>
+        <HierarchyLvlType EnglishName="package" IntrnlName="package" Intrnl_Id="5"/>
+        <HierarchyLvlType EnglishName="anonymous class" IntrnlName="class" Intrnl_Id="6"/>
+        <HierarchyLvlType EnglishName="method" IntrnlName="method" Intrnl_Id="7"/>
+        <HierarchyLvlType EnglishName="class" IntrnlName="class" Intrnl_Id="8"/>
+        <HierarchyLvlType EnglishName="default package" IntrnlName="default package" Intrnl_Id="9"/>
+    </HierarchyLvlTypeList>
+    <MASTRoot>
+        <HierarchyLvl HierarchyLvlId="73" HierarchyLvlTypeId="9" Intrnl_Id="10" Name="default package">
+            <Header/>
+            <LocList/>
+            <HierarchyLvl HierarchyLvlId="72" HierarchyLvlTypeId="5" Intrnl_Id="11" Name="login">
+                <Header/>
+                <LocList/>
+                <HierarchyLvl HierarchyLvlId="71" HierarchyLvlTypeId="8" Intrnl_Id="12" Name="LoginFrame">
+                    <Header>
+                        <Loc EndOffset="678" SrcFileId="1" StartOffset="614"/>
+                    </Header>
+                    <LocList>
+                        <Loc EndOffset="9349" SrcFileId="1" StartOffset="614"/>
+                    </LocList>
+                    <StmntSeq Intrnl_Id="13">
+                        <LocList>
+                            <Loc EndOffset="733" SrcFileId="1" StartOffset="698"/>
+                            <Loc EndOffset="808" SrcFileId="1" StartOffset="736"/>
+                            <Loc EndOffset="889" SrcFileId="1" StartOffset="822"/>
+                            <Loc EndOffset="925" SrcFileId="1" StartOffset="892"/>
+                            <Loc EndOffset="972" SrcFileId="1" StartOffset="928"/>
+                            <Loc EndOffset="1018" SrcFileId="1" StartOffset="975"/>
+                            <Loc EndOffset="1063" SrcFileId="1" StartOffset="1021"/>
+                            <Loc EndOffset="1122" SrcFileId="1" StartOffset="1066"/>
+                            <Loc EndOffset="1170" SrcFileId="1" StartOffset="1125"/>
+                            <Loc EndOffset="1224" SrcFileId="1" StartOffset="1173"/>
+                            <Loc EndOffset="1262" SrcFileId="1" StartOffset="1227"/>
+                            <Loc EndOffset="1394" SrcFileId="1" StartOffset="1360"/>
+                            <Loc EndOffset="1455" SrcFileId="1" StartOffset="1397"/>
+                            <Loc EndOffset="1504" SrcFileId="1" StartOffset="1458"/>
+                            <Loc EndOffset="1565" SrcFileId="1" StartOffset="1507"/>
+                            <Loc EndOffset="1611" SrcFileId="1" StartOffset="1568"/>
+                            <Loc EndOffset="1652" SrcFileId="1" StartOffset="1614"/>
+                        </LocList>
+                        <BasicStmnt CovItemId="S1" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="14">
+                            <LocList>
+                                <Loc EndOffset="733" SrcFileId="1" StartOffset="698"/>
+                            </LocList>
+                        </BasicStmnt>
+                        <BasicStmnt CovItemId="S2" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="15">
+                            <LocList>
+                                <Loc EndOffset="808" SrcFileId="1" StartOffset="736"/>
+                            </LocList>
+                        </BasicStmnt>
+                        <BasicStmnt CovItemId="S3" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="16">
+                            <LocList>
+                                <Loc EndOffset="889" SrcFileId="1" StartOffset="822"/>
+                            </LocList>
+                        </BasicStmnt>
+                        <BasicStmnt CovItemId="S4" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="17">
+                            <LocList>
+                                <Loc EndOffset="925" SrcFileId="1" StartOffset="892"/>
+                            </LocList>
+                        </BasicStmnt>
+                        <BasicStmnt CovItemId="S5" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="18">
+                            <LocList>
+                                <Loc EndOffset="972" SrcFileId="1" StartOffset="928"/>
+                            </LocList>
+                        </BasicStmnt>
+                        <BasicStmnt CovItemId="S6" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="19">
+                            <LocList>
+                                <Loc EndOffset="1018" SrcFileId="1" StartOffset="975"/>
+                            </LocList>
+                        </BasicStmnt>
+                        <BasicStmnt CovItemId="S7" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="20">
+                            <LocList>
+                                <Loc EndOffset="1063" SrcFileId="1" StartOffset="1021"/>
+                            </LocList>
+                        </BasicStmnt>
+                        <BasicStmnt CovItemId="S8" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="21">
+                            <LocList>
+                                <Loc EndOffset="1122" SrcFileId="1" StartOffset="1066"/>
+                            </LocList>
+                        </BasicStmnt>
+                        <BasicStmnt CovItemId="S9" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="22">
+                            <LocList>
+                                <Loc EndOffset="1170" SrcFileId="1" StartOffset="1125"/>
+                            </LocList>
+                        </BasicStmnt>
+                        <BasicStmnt CovItemId="S10" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="23">
+                            <LocList>
+                                <Loc EndOffset="1224" SrcFileId="1" StartOffset="1173"/>
+                            </LocList>
+                        </BasicStmnt>
+                        <BasicStmnt CovItemId="S11" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="24">
+                            <LocList>
+                                <Loc EndOffset="1262" SrcFileId="1" StartOffset="1227"/>
+                            </LocList>
+                        </BasicStmnt>
+                        <BasicStmnt CovItemId="S12" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="25">
+                            <LocList>
+                                <Loc EndOffset="1394" SrcFileId="1" StartOffset="1360"/>
+                            </LocList>
+                        </BasicStmnt>
+                        <BasicStmnt CovItemId="S13" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="26">
+                            <LocList>
+                                <Loc EndOffset="1455" SrcFileId="1" StartOffset="1397"/>
+                            </LocList>
+                        </BasicStmnt>
+                        <BasicStmnt CovItemId="S14" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="27">
+                            <LocList>
+                                <Loc EndOffset="1504" SrcFileId="1" StartOffset="1458"/>
+                            </LocList>
+                        </BasicStmnt>
+                        <BasicStmnt CovItemId="S15" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="28">
+                            <LocList>
+                                <Loc EndOffset="1565" SrcFileId="1" StartOffset="1507"/>
+                            </LocList>
+                        </BasicStmnt>
+                        <BasicStmnt CovItemId="S16" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="29">
+                            <LocList>
+                                <Loc EndOffset="1611" SrcFileId="1" StartOffset="1568"/>
+                            </LocList>
+                        </BasicStmnt>
+                        <BasicStmnt CovItemId="S17" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="30">
+                            <LocList>
+                                <Loc EndOffset="1652" SrcFileId="1" StartOffset="1614"/>
+                            </LocList>
+                        </BasicStmnt>
+                    </StmntSeq>
+                    <HierarchyLvl HierarchyLvlId="62" HierarchyLvlTypeId="7" Intrnl_Id="31" Name="LoginFrame">
+                        <Header>
+                            <Loc EndOffset="1700" SrcFileId="1" StartOffset="1658"/>
+                        </Header>
+                        <LocList>
+                            <Loc EndOffset="2409" SrcFileId="1" StartOffset="1658"/>
+                        </LocList>
+                        <StmntSeq Intrnl_Id="32">
+                            <LocList>
+                                <Loc EndOffset="1744" SrcFileId="1" StartOffset="1706"/>
+                                <Loc EndOffset="1800" SrcFileId="1" StartOffset="1748"/>
+                                <Loc EndOffset="1853" SrcFileId="1" StartOffset="1828"/>
+                                <Loc EndOffset="1908" SrcFileId="1" StartOffset="1886"/>
+                                <Loc EndOffset="1985" SrcFileId="1" StartOffset="1952"/>
+                                <Loc EndOffset="2065" SrcFileId="1" StartOffset="2050"/>
+                                <Loc EndOffset="2117" SrcFileId="1" StartOffset="2096"/>
+                                <Loc EndOffset="2163" SrcFileId="1" StartOffset="2145"/>
+                                <Loc EndOffset="2216" SrcFileId="1" StartOffset="2189"/>
+                                <Loc EndOffset="2260" SrcFileId="1" StartOffset="2243"/>
+                                <Loc EndOffset="2344" SrcFileId="1" StartOffset="2323"/>
+                                <Loc EndOffset="2387" SrcFileId="1" StartOffset="2365"/>
+                            </LocList>
+                            <BasicStmnt CovItemId="S18" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="33">
+                                <LocList>
+                                    <Loc EndOffset="1744" SrcFileId="1" StartOffset="1706"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S19" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="34">
+                                <LocList>
+                                    <Loc EndOffset="1800" SrcFileId="1" StartOffset="1748"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S20" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="35">
+                                <LocList>
+                                    <Loc EndOffset="1853" SrcFileId="1" StartOffset="1828"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S21" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="36">
+                                <LocList>
+                                    <Loc EndOffset="1908" SrcFileId="1" StartOffset="1886"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S22" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="37">
+                                <LocList>
+                                    <Loc EndOffset="1985" SrcFileId="1" StartOffset="1952"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S23" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="38">
+                                <LocList>
+                                    <Loc EndOffset="2065" SrcFileId="1" StartOffset="2050"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S24" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="39">
+                                <LocList>
+                                    <Loc EndOffset="2117" SrcFileId="1" StartOffset="2096"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S25" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="40">
+                                <LocList>
+                                    <Loc EndOffset="2163" SrcFileId="1" StartOffset="2145"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S26" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="41">
+                                <LocList>
+                                    <Loc EndOffset="2216" SrcFileId="1" StartOffset="2189"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S27" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="42">
+                                <LocList>
+                                    <Loc EndOffset="2260" SrcFileId="1" StartOffset="2243"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S28" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="43">
+                                <LocList>
+                                    <Loc EndOffset="2344" SrcFileId="1" StartOffset="2323"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S29" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="44">
+                                <LocList>
+                                    <Loc EndOffset="2387" SrcFileId="1" StartOffset="2365"/>
+                                </LocList>
+                            </BasicStmnt>
+                        </StmntSeq>
+                    </HierarchyLvl>
+                    <HierarchyLvl HierarchyLvlId="63" HierarchyLvlTypeId="7" Intrnl_Id="45" Name="setWelcome">
+                        <Header>
+                            <Loc EndOffset="2440" SrcFileId="1" StartOffset="2415"/>
+                        </Header>
+                        <LocList>
+                            <Loc EndOffset="2752" SrcFileId="1" StartOffset="2415"/>
+                        </LocList>
+                        <StmntSeq Intrnl_Id="46">
+                            <LocList>
+                                <Loc EndOffset="2493" SrcFileId="1" StartOffset="2446"/>
+                                <Loc EndOffset="2573" SrcFileId="1" StartOffset="2522"/>
+                                <Loc EndOffset="2616" SrcFileId="1" StartOffset="2585"/>
+                                <Loc EndOffset="2660" SrcFileId="1" StartOffset="2620"/>
+                                <Loc EndOffset="2694" SrcFileId="1" StartOffset="2664"/>
+                                <Loc EndOffset="2748" SrcFileId="1" StartOffset="2725"/>
+                            </LocList>
+                            <BasicStmnt CovItemId="S30" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="47">
+                                <LocList>
+                                    <Loc EndOffset="2493" SrcFileId="1" StartOffset="2446"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S31" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="48">
+                                <LocList>
+                                    <Loc EndOffset="2573" SrcFileId="1" StartOffset="2522"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S32" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="49">
+                                <LocList>
+                                    <Loc EndOffset="2616" SrcFileId="1" StartOffset="2585"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S33" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="50">
+                                <LocList>
+                                    <Loc EndOffset="2660" SrcFileId="1" StartOffset="2620"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S34" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="51">
+                                <LocList>
+                                    <Loc EndOffset="2694" SrcFileId="1" StartOffset="2664"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S35" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="52">
+                                <LocList>
+                                    <Loc EndOffset="2748" SrcFileId="1" StartOffset="2725"/>
+                                </LocList>
+                            </BasicStmnt>
+                        </StmntSeq>
+                    </HierarchyLvl>
+                    <HierarchyLvl HierarchyLvlId="64" HierarchyLvlTypeId="7" Intrnl_Id="53" Name="setLogin">
+                        <Header>
+                            <Loc EndOffset="2804" SrcFileId="1" StartOffset="2758"/>
+                        </Header>
+                        <LocList>
+                            <Loc EndOffset="4652" SrcFileId="1" StartOffset="2758"/>
+                        </LocList>
+                        <StmntSeq Intrnl_Id="54">
+                            <LocList>
+                                <Loc EndOffset="2845" SrcFileId="1" StartOffset="2814"/>
+                                <Loc EndOffset="2903" SrcFileId="1" StartOffset="2849"/>
+                                <Loc EndOffset="2976" SrcFileId="1" StartOffset="2940"/>
+                                <Loc EndOffset="3007" SrcFileId="1" StartOffset="2980"/>
+                                <Loc EndOffset="3074" SrcFileId="1" StartOffset="3027"/>
+                                <Loc EndOffset="3123" SrcFileId="1" StartOffset="3082"/>
+                                <Loc EndOffset="3177" SrcFileId="1" StartOffset="3128"/>
+                                <Loc EndOffset="3259" SrcFileId="1" StartOffset="3206"/>
+                                <Loc EndOffset="3310" SrcFileId="1" StartOffset="3275"/>
+                                <Loc EndOffset="3360" SrcFileId="1" StartOffset="3314"/>
+                                <Loc EndOffset="3421" SrcFileId="1" StartOffset="3389"/>
+                                <Loc EndOffset="3469" SrcFileId="1" StartOffset="3433"/>
+                                <Loc EndOffset="3505" SrcFileId="1" StartOffset="3473"/>
+                                <Loc EndOffset="3562" SrcFileId="1" StartOffset="3521"/>
+                                <Loc EndOffset="3618" SrcFileId="1" StartOffset="3566"/>
+                                <Loc EndOffset="3685" SrcFileId="1" StartOffset="3647"/>
+                                <Loc EndOffset="3739" SrcFileId="1" StartOffset="3697"/>
+                                <Loc EndOffset="3781" SrcFileId="1" StartOffset="3743"/>
+                                <Loc EndOffset="3836" SrcFileId="1" StartOffset="3797"/>
+                                <Loc EndOffset="3891" SrcFileId="1" StartOffset="3840"/>
+                                <Loc EndOffset="3936" SrcFileId="1" StartOffset="3899"/>
+                                <Loc EndOffset="3972" SrcFileId="1" StartOffset="3940"/>
+                                <Loc EndOffset="4016" SrcFileId="1" StartOffset="3984"/>
+                                <Loc EndOffset="4056" SrcFileId="1" StartOffset="4020"/>
+                                <Loc EndOffset="4102" SrcFileId="1" StartOffset="4064"/>
+                                <Loc EndOffset="4138" SrcFileId="1" StartOffset="4106"/>
+                                <Loc EndOffset="4182" SrcFileId="1" StartOffset="4150"/>
+                                <Loc EndOffset="4222" SrcFileId="1" StartOffset="4186"/>
+                                <Loc EndOffset="4261" SrcFileId="1" StartOffset="4230"/>
+                                <Loc EndOffset="4293" SrcFileId="1" StartOffset="4265"/>
+                                <Loc EndOffset="4331" SrcFileId="1" StartOffset="4297"/>
+                                <Loc EndOffset="4364" SrcFileId="1" StartOffset="4335"/>
+                                <Loc EndOffset="4396" SrcFileId="1" StartOffset="4368"/>
+                                <Loc EndOffset="4434" SrcFileId="1" StartOffset="4400"/>
+                                <Loc EndOffset="4466" SrcFileId="1" StartOffset="4438"/>
+                                <Loc EndOffset="4498" SrcFileId="1" StartOffset="4470"/>
+                                <Loc EndOffset="4534" SrcFileId="1" StartOffset="4506"/>
+                                <Loc EndOffset="4587" SrcFileId="1" StartOffset="4538"/>
+                                <Loc EndOffset="4648" SrcFileId="1" StartOffset="4627"/>
+                            </LocList>
+                            <BasicStmnt CovItemId="S36" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="55">
+                                <LocList>
+                                    <Loc EndOffset="2845" SrcFileId="1" StartOffset="2814"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S37" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="56">
+                                <LocList>
+                                    <Loc EndOffset="2903" SrcFileId="1" StartOffset="2849"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S38" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="57">
+                                <LocList>
+                                    <Loc EndOffset="2976" SrcFileId="1" StartOffset="2940"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S39" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="58">
+                                <LocList>
+                                    <Loc EndOffset="3007" SrcFileId="1" StartOffset="2980"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S40" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="59">
+                                <LocList>
+                                    <Loc EndOffset="3074" SrcFileId="1" StartOffset="3027"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S41" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="60">
+                                <LocList>
+                                    <Loc EndOffset="3123" SrcFileId="1" StartOffset="3082"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S42" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="61">
+                                <LocList>
+                                    <Loc EndOffset="3177" SrcFileId="1" StartOffset="3128"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S43" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="62">
+                                <LocList>
+                                    <Loc EndOffset="3259" SrcFileId="1" StartOffset="3206"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S44" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="63">
+                                <LocList>
+                                    <Loc EndOffset="3310" SrcFileId="1" StartOffset="3275"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S45" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="64">
+                                <LocList>
+                                    <Loc EndOffset="3360" SrcFileId="1" StartOffset="3314"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S46" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="65">
+                                <LocList>
+                                    <Loc EndOffset="3421" SrcFileId="1" StartOffset="3389"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S47" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="66">
+                                <LocList>
+                                    <Loc EndOffset="3469" SrcFileId="1" StartOffset="3433"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S48" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="67">
+                                <LocList>
+                                    <Loc EndOffset="3505" SrcFileId="1" StartOffset="3473"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S49" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="68">
+                                <LocList>
+                                    <Loc EndOffset="3562" SrcFileId="1" StartOffset="3521"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S50" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="69">
+                                <LocList>
+                                    <Loc EndOffset="3618" SrcFileId="1" StartOffset="3566"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S51" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="70">
+                                <LocList>
+                                    <Loc EndOffset="3685" SrcFileId="1" StartOffset="3647"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S52" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="71">
+                                <LocList>
+                                    <Loc EndOffset="3739" SrcFileId="1" StartOffset="3697"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S53" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="72">
+                                <LocList>
+                                    <Loc EndOffset="3781" SrcFileId="1" StartOffset="3743"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S54" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="73">
+                                <LocList>
+                                    <Loc EndOffset="3836" SrcFileId="1" StartOffset="3797"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S55" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="74">
+                                <LocList>
+                                    <Loc EndOffset="3891" SrcFileId="1" StartOffset="3840"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S56" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="75">
+                                <LocList>
+                                    <Loc EndOffset="3936" SrcFileId="1" StartOffset="3899"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S57" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="76">
+                                <LocList>
+                                    <Loc EndOffset="3972" SrcFileId="1" StartOffset="3940"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S58" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="77">
+                                <LocList>
+                                    <Loc EndOffset="4016" SrcFileId="1" StartOffset="3984"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S59" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="78">
+                                <LocList>
+                                    <Loc EndOffset="4056" SrcFileId="1" StartOffset="4020"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S60" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="79">
+                                <LocList>
+                                    <Loc EndOffset="4102" SrcFileId="1" StartOffset="4064"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S61" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="80">
+                                <LocList>
+                                    <Loc EndOffset="4138" SrcFileId="1" StartOffset="4106"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S62" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="81">
+                                <LocList>
+                                    <Loc EndOffset="4182" SrcFileId="1" StartOffset="4150"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S63" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="82">
+                                <LocList>
+                                    <Loc EndOffset="4222" SrcFileId="1" StartOffset="4186"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S64" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="83">
+                                <LocList>
+                                    <Loc EndOffset="4261" SrcFileId="1" StartOffset="4230"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S65" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="84">
+                                <LocList>
+                                    <Loc EndOffset="4293" SrcFileId="1" StartOffset="4265"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S66" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="85">
+                                <LocList>
+                                    <Loc EndOffset="4331" SrcFileId="1" StartOffset="4297"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S67" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="86">
+                                <LocList>
+                                    <Loc EndOffset="4364" SrcFileId="1" StartOffset="4335"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S68" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="87">
+                                <LocList>
+                                    <Loc EndOffset="4396" SrcFileId="1" StartOffset="4368"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S69" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="88">
+                                <LocList>
+                                    <Loc EndOffset="4434" SrcFileId="1" StartOffset="4400"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S70" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="89">
+                                <LocList>
+                                    <Loc EndOffset="4466" SrcFileId="1" StartOffset="4438"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S71" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="90">
+                                <LocList>
+                                    <Loc EndOffset="4498" SrcFileId="1" StartOffset="4470"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S72" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="91">
+                                <LocList>
+                                    <Loc EndOffset="4534" SrcFileId="1" StartOffset="4506"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S73" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="92">
+                                <LocList>
+                                    <Loc EndOffset="4587" SrcFileId="1" StartOffset="4538"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S74" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="93">
+                                <LocList>
+                                    <Loc EndOffset="4648" SrcFileId="1" StartOffset="4627"/>
+                                </LocList>
+                            </BasicStmnt>
+                        </StmntSeq>
+                    </HierarchyLvl>
+                    <HierarchyLvl HierarchyLvlId="65" HierarchyLvlTypeId="7" Intrnl_Id="94" Name="setSignup">
+                        <Header>
+                            <Loc EndOffset="4682" SrcFileId="1" StartOffset="4658"/>
+                        </Header>
+                        <LocList>
+                            <Loc EndOffset="6127" SrcFileId="1" StartOffset="4658"/>
+                        </LocList>
+                        <StmntSeq Intrnl_Id="95">
+                            <LocList>
+                                <Loc EndOffset="4739" SrcFileId="1" StartOffset="4692"/>
+                                <Loc EndOffset="4789" SrcFileId="1" StartOffset="4747"/>
+                                <Loc EndOffset="4821" SrcFileId="1" StartOffset="4793"/>
+                                <Loc EndOffset="4868" SrcFileId="1" StartOffset="4829"/>
+                                <Loc EndOffset="4918" SrcFileId="1" StartOffset="4872"/>
+                                <Loc EndOffset="4979" SrcFileId="1" StartOffset="4947"/>
+                                <Loc EndOffset="5031" SrcFileId="1" StartOffset="4991"/>
+                                <Loc EndOffset="5068" SrcFileId="1" StartOffset="5035"/>
+                                <Loc EndOffset="5117" SrcFileId="1" StartOffset="5080"/>
+                                <Loc EndOffset="5163" SrcFileId="1" StartOffset="5125"/>
+                                <Loc EndOffset="5212" SrcFileId="1" StartOffset="5167"/>
+                                <Loc EndOffset="5272" SrcFileId="1" StartOffset="5241"/>
+                                <Loc EndOffset="5323" SrcFileId="1" StartOffset="5284"/>
+                                <Loc EndOffset="5359" SrcFileId="1" StartOffset="5327"/>
+                                <Loc EndOffset="5407" SrcFileId="1" StartOffset="5371"/>
+                                <Loc EndOffset="5458" SrcFileId="1" StartOffset="5415"/>
+                                <Loc EndOffset="5563" SrcFileId="1" StartOffset="5462"/>
+                                <Loc EndOffset="5603" SrcFileId="1" StartOffset="5567"/>
+                                <Loc EndOffset="5666" SrcFileId="1" StartOffset="5615"/>
+                                <Loc EndOffset="5728" SrcFileId="1" StartOffset="5699"/>
+                                <Loc EndOffset="5762" SrcFileId="1" StartOffset="5732"/>
+                                <Loc EndOffset="5794" SrcFileId="1" StartOffset="5766"/>
+                                <Loc EndOffset="5827" SrcFileId="1" StartOffset="5798"/>
+                                <Loc EndOffset="5864" SrcFileId="1" StartOffset="5831"/>
+                                <Loc EndOffset="5890" SrcFileId="1" StartOffset="5868"/>
+                                <Loc EndOffset="5945" SrcFileId="1" StartOffset="5898"/>
+                                <Loc EndOffset="6022" SrcFileId="1" StartOffset="5949"/>
+                                <Loc EndOffset="6088" SrcFileId="1" StartOffset="6047"/>
+                            </LocList>
+                            <BasicStmnt CovItemId="S75" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="96">
+                                <LocList>
+                                    <Loc EndOffset="4739" SrcFileId="1" StartOffset="4692"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S76" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="97">
+                                <LocList>
+                                    <Loc EndOffset="4789" SrcFileId="1" StartOffset="4747"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S77" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="98">
+                                <LocList>
+                                    <Loc EndOffset="4821" SrcFileId="1" StartOffset="4793"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S78" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="99">
+                                <LocList>
+                                    <Loc EndOffset="4868" SrcFileId="1" StartOffset="4829"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S79" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="100">
+                                <LocList>
+                                    <Loc EndOffset="4918" SrcFileId="1" StartOffset="4872"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S80" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="101">
+                                <LocList>
+                                    <Loc EndOffset="4979" SrcFileId="1" StartOffset="4947"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S81" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="102">
+                                <LocList>
+                                    <Loc EndOffset="5031" SrcFileId="1" StartOffset="4991"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S82" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="103">
+                                <LocList>
+                                    <Loc EndOffset="5068" SrcFileId="1" StartOffset="5035"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S83" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="104">
+                                <LocList>
+                                    <Loc EndOffset="5117" SrcFileId="1" StartOffset="5080"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S84" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="105">
+                                <LocList>
+                                    <Loc EndOffset="5163" SrcFileId="1" StartOffset="5125"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S85" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="106">
+                                <LocList>
+                                    <Loc EndOffset="5212" SrcFileId="1" StartOffset="5167"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S86" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="107">
+                                <LocList>
+                                    <Loc EndOffset="5272" SrcFileId="1" StartOffset="5241"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S87" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="108">
+                                <LocList>
+                                    <Loc EndOffset="5323" SrcFileId="1" StartOffset="5284"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S88" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="109">
+                                <LocList>
+                                    <Loc EndOffset="5359" SrcFileId="1" StartOffset="5327"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S89" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="110">
+                                <LocList>
+                                    <Loc EndOffset="5407" SrcFileId="1" StartOffset="5371"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S90" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="111">
+                                <LocList>
+                                    <Loc EndOffset="5458" SrcFileId="1" StartOffset="5415"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S91" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="112">
+                                <LocList>
+                                    <Loc EndOffset="5563" SrcFileId="1" StartOffset="5462"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S92" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="113">
+                                <LocList>
+                                    <Loc EndOffset="5603" SrcFileId="1" StartOffset="5567"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S93" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="114">
+                                <LocList>
+                                    <Loc EndOffset="5666" SrcFileId="1" StartOffset="5615"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S94" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="115">
+                                <LocList>
+                                    <Loc EndOffset="5728" SrcFileId="1" StartOffset="5699"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S95" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="116">
+                                <LocList>
+                                    <Loc EndOffset="5762" SrcFileId="1" StartOffset="5732"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S96" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="117">
+                                <LocList>
+                                    <Loc EndOffset="5794" SrcFileId="1" StartOffset="5766"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S97" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="118">
+                                <LocList>
+                                    <Loc EndOffset="5827" SrcFileId="1" StartOffset="5798"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S98" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="119">
+                                <LocList>
+                                    <Loc EndOffset="5864" SrcFileId="1" StartOffset="5831"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S99" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="120">
+                                <LocList>
+                                    <Loc EndOffset="5890" SrcFileId="1" StartOffset="5868"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S100" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="121">
+                                <LocList>
+                                    <Loc EndOffset="5945" SrcFileId="1" StartOffset="5898"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S101" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="122">
+                                <LocList>
+                                    <Loc EndOffset="6022" SrcFileId="1" StartOffset="5949"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S102" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="123">
+                                <LocList>
+                                    <Loc EndOffset="6088" SrcFileId="1" StartOffset="6047"/>
+                                </LocList>
+                            </BasicStmnt>
+                        </StmntSeq>
+                    </HierarchyLvl>
+                    <HierarchyLvl HierarchyLvlId="66" HierarchyLvlTypeId="7" Intrnl_Id="124" Name="setIcon">
+                        <Header>
+                            <Loc EndOffset="6155" SrcFileId="1" StartOffset="6133"/>
+                        </Header>
+                        <LocList>
+                            <Loc EndOffset="6275" SrcFileId="1" StartOffset="6133"/>
+                        </LocList>
+                        <StmntSeq Intrnl_Id="125">
+                            <LocList>
+                                <Loc EndOffset="6217" SrcFileId="1" StartOffset="6161"/>
+                                <Loc EndOffset="6257" SrcFileId="1" StartOffset="6221"/>
+                            </LocList>
+                            <BasicStmnt CovItemId="S103" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="126">
+                                <LocList>
+                                    <Loc EndOffset="6217" SrcFileId="1" StartOffset="6161"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S104" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="127">
+                                <LocList>
+                                    <Loc EndOffset="6257" SrcFileId="1" StartOffset="6221"/>
+                                </LocList>
+                            </BasicStmnt>
+                        </StmntSeq>
+                    </HierarchyLvl>
+                    <HierarchyLvl HierarchyLvlId="69" HierarchyLvlTypeId="7" Intrnl_Id="128" Name="setBackground">
+                        <Header>
+                            <Loc EndOffset="6309" SrcFileId="1" StartOffset="6281"/>
+                        </Header>
+                        <LocList>
+                            <Loc EndOffset="6793" SrcFileId="1" StartOffset="6281"/>
+                        </LocList>
+                        <StmntSeq Intrnl_Id="129">
+                            <LocList>
+                                <Loc EndOffset="6396" SrcFileId="1" StartOffset="6325"/>
+                                <Loc EndOffset="6421" SrcFileId="1" StartOffset="6401"/>
+                                <Loc EndOffset="6635" SrcFileId="1" StartOffset="6633"/>
+                                <Loc EndOffset="6785" SrcFileId="1" StartOffset="6315"/>
+                            </LocList>
+                            <BasicStmnt CovItemId="S106" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="130">
+                                <LocList>
+                                    <Loc EndOffset="6396" SrcFileId="1" StartOffset="6325"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <BasicStmnt CovItemId="S107" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="131">
+                                <LocList>
+                                    <Loc EndOffset="6421" SrcFileId="1" StartOffset="6401"/>
+                                    <Loc EndOffset="6635" SrcFileId="1" StartOffset="6633"/>
+                                </LocList>
+                            </BasicStmnt>
+                            <CondStmnt CovItemId="S105" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="132">
+                                <Branch CovItemId="B1" CovItemPrefix="login.LoginFrame.java" Implct="true" Intrnl_Id="133">
+                                    <Cond/>
+                                    <LocList/>
+                                    <StmntSeq Intrnl_Id="134">
+                                        <LocList/>
+                                    </StmntSeq>
+                                </Branch>
+                                <Branch CovItemId="B2" CovItemPrefix="login.LoginFrame.java" Implct="false" Intrnl_Id="135">
+                                    <Cond>
+                                        <Loc EndOffset="6662" SrcFileId="1" StartOffset="6641"/>
+                                    </Cond>
+                                    <LocList>
+                                        <Loc EndOffset="6785" SrcFileId="1" StartOffset="6663"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="136">
+                                        <LocList>
+                                            <Loc EndOffset="6726" SrcFileId="1" StartOffset="6669"/>
+                                            <Loc EndOffset="6780" SrcFileId="1" StartOffset="6760"/>
+                                        </LocList>
+                                        <BasicStmnt CovItemId="S110" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="137">
+                                            <LocList>
+                                                <Loc EndOffset="6726" SrcFileId="1" StartOffset="6669"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                        <BasicStmnt CovItemId="S111" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="138">
+                                            <LocList>
+                                                <Loc EndOffset="6780" SrcFileId="1" StartOffset="6760"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Keyword EndOffset="6318" SrcFileId="1" StartOffset="6315"/>
+                                <LocList>
+                                    <Loc EndOffset="6785" SrcFileId="1" StartOffset="6315"/>
+                                </LocList>
+                            </CondStmnt>
+                        </StmntSeq>
+                        <HierarchyLvl HierarchyLvlId="68" HierarchyLvlTypeId="6" Intrnl_Id="139" Name="JPanel">
+                            <Header>
+                                <Loc EndOffset="6433" SrcFileId="1" StartOffset="6425"/>
+                            </Header>
+                            <LocList>
+                                <Loc EndOffset="6633" SrcFileId="1" StartOffset="6421"/>
+                            </LocList>
+                            <HierarchyLvl HierarchyLvlId="67" HierarchyLvlTypeId="7" Intrnl_Id="140" Name="paintComponent">
+                                <Header>
+                                    <Loc EndOffset="6508" SrcFileId="1" StartOffset="6448"/>
+                                </Header>
+                                <LocList>
+                                    <Loc EndOffset="6622" SrcFileId="1" StartOffset="6448"/>
+                                </LocList>
+                                <StmntSeq Intrnl_Id="141">
+                                    <LocList>
+                                        <Loc EndOffset="6550" SrcFileId="1" StartOffset="6526"/>
+                                        <Loc EndOffset="6608" SrcFileId="1" StartOffset="6566"/>
+                                    </LocList>
+                                    <BasicStmnt CovItemId="S108" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="142">
+                                        <LocList>
+                                            <Loc EndOffset="6550" SrcFileId="1" StartOffset="6526"/>
+                                        </LocList>
+                                    </BasicStmnt>
+                                    <BasicStmnt CovItemId="S109" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="143">
+                                        <LocList>
+                                            <Loc EndOffset="6608" SrcFileId="1" StartOffset="6566"/>
+                                        </LocList>
+                                    </BasicStmnt>
+                                </StmntSeq>
+                            </HierarchyLvl>
+                        </HierarchyLvl>
+                    </HierarchyLvl>
+                    <HierarchyLvl HierarchyLvlId="70" HierarchyLvlTypeId="7" Intrnl_Id="144" Name="actionPerformed">
+                        <Header>
+                            <Loc EndOffset="6852" SrcFileId="1" StartOffset="6798"/>
+                        </Header>
+                        <LocList>
+                            <Loc EndOffset="9342" SrcFileId="1" StartOffset="6798"/>
+                        </LocList>
+                        <StmntSeq Intrnl_Id="145">
+                            <LocList>
+                                <Loc EndOffset="6993" SrcFileId="1" StartOffset="6862"/>
+                                <Loc EndOffset="8990" SrcFileId="1" StartOffset="7001"/>
+                                <Loc EndOffset="9099" SrcFileId="1" StartOffset="8998"/>
+                                <Loc EndOffset="9338" SrcFileId="1" StartOffset="9107"/>
+                            </LocList>
+                            <CondStmnt CovItemId="S112" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="146">
+                                <Branch CovItemId="B3" CovItemPrefix="login.LoginFrame.java" Implct="false" Intrnl_Id="147">
+                                    <Cond/>
+                                    <LocList>
+                                        <Loc EndOffset="6993" SrcFileId="1" StartOffset="6893"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="148">
+                                        <LocList>
+                                            <Loc EndOffset="6923" SrcFileId="1" StartOffset="6899"/>
+                                            <Loc EndOffset="6958" SrcFileId="1" StartOffset="6928"/>
+                                            <Loc EndOffset="6988" SrcFileId="1" StartOffset="6963"/>
+                                        </LocList>
+                                        <BasicStmnt CovItemId="S113" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="149">
+                                            <LocList>
+                                                <Loc EndOffset="6923" SrcFileId="1" StartOffset="6899"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                        <BasicStmnt CovItemId="S114" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="150">
+                                            <LocList>
+                                                <Loc EndOffset="6958" SrcFileId="1" StartOffset="6928"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                        <BasicStmnt CovItemId="S115" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="151">
+                                            <LocList>
+                                                <Loc EndOffset="6988" SrcFileId="1" StartOffset="6963"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Branch CovItemId="B4" CovItemPrefix="login.LoginFrame.java" Implct="true" Intrnl_Id="152">
+                                    <Cond/>
+                                    <LocList/>
+                                    <StmntSeq Intrnl_Id="153">
+                                        <LocList/>
+                                    </StmntSeq>
+                                </Branch>
+                                <Keyword EndOffset="6864" SrcFileId="1" StartOffset="6862"/>
+                                <LocList>
+                                    <Loc EndOffset="6993" SrcFileId="1" StartOffset="6862"/>
+                                </LocList>
+                                <RootTerm CovItemId="C1" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="154">
+                                    <BasicBoolTerm Intrnl_Id="155">
+                                        <LocList>
+                                            <Loc EndOffset="6891" SrcFileId="1" StartOffset="6865"/>
+                                        </LocList>
+                                    </BasicBoolTerm>
+                                </RootTerm>
+                            </CondStmnt>
+                            <CondStmnt CovItemId="S116" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="156">
+                                <Branch CovItemId="B5" CovItemPrefix="login.LoginFrame.java" Implct="false" Intrnl_Id="157">
+                                    <Cond/>
+                                    <LocList>
+                                        <Loc EndOffset="8990" SrcFileId="1" StartOffset="7032"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="158">
+                                        <LocList>
+                                            <Loc EndOffset="7095" SrcFileId="1" StartOffset="7043"/>
+                                            <Loc EndOffset="7166" SrcFileId="1" StartOffset="7100"/>
+                                            <Loc EndOffset="8980" SrcFileId="1" StartOffset="7890"/>
+                                        </LocList>
+                                        <BasicStmnt CovItemId="S117" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="159">
+                                            <LocList>
+                                                <Loc EndOffset="7095" SrcFileId="1" StartOffset="7043"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                        <BasicStmnt CovItemId="S118" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="160">
+                                            <LocList>
+                                                <Loc EndOffset="7166" SrcFileId="1" StartOffset="7100"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                        <CondStmnt CovItemId="S119" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="161">
+                                            <Branch CovItemId="B7" CovItemPrefix="login.LoginFrame.java" Implct="false" Intrnl_Id="162">
+                                                <Cond/>
+                                                <LocList>
+                                                    <Loc EndOffset="8420" SrcFileId="1" StartOffset="8104"/>
+                                                </LocList>
+                                                <StmntSeq Intrnl_Id="163">
+                                                    <LocList>
+                                                        <Loc EndOffset="8157" SrcFileId="1" StartOffset="8117"/>
+                                                        <Loc EndOffset="8204" SrcFileId="1" StartOffset="8163"/>
+                                                        <Loc EndOffset="8288" SrcFileId="1" StartOffset="8254"/>
+                                                        <Loc EndOffset="8309" SrcFileId="1" StartOffset="8294"/>
+                                                        <Loc EndOffset="8408" SrcFileId="1" StartOffset="8335"/>
+                                                    </LocList>
+                                                    <BasicStmnt CovItemId="S120" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="164">
+                                                        <LocList>
+                                                            <Loc EndOffset="8157" SrcFileId="1" StartOffset="8117"/>
+                                                        </LocList>
+                                                    </BasicStmnt>
+                                                    <BasicStmnt CovItemId="S121" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="165">
+                                                        <LocList>
+                                                            <Loc EndOffset="8204" SrcFileId="1" StartOffset="8163"/>
+                                                        </LocList>
+                                                    </BasicStmnt>
+                                                    <BasicStmnt CovItemId="S122" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="166">
+                                                        <LocList>
+                                                            <Loc EndOffset="8288" SrcFileId="1" StartOffset="8254"/>
+                                                        </LocList>
+                                                    </BasicStmnt>
+                                                    <BasicStmnt CovItemId="S123" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="167">
+                                                        <LocList>
+                                                            <Loc EndOffset="8309" SrcFileId="1" StartOffset="8294"/>
+                                                        </LocList>
+                                                    </BasicStmnt>
+                                                    <BasicStmnt CovItemId="S124" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="168">
+                                                        <LocList>
+                                                            <Loc EndOffset="8408" SrcFileId="1" StartOffset="8335"/>
+                                                        </LocList>
+                                                    </BasicStmnt>
+                                                </StmntSeq>
+                                            </Branch>
+                                            <Branch CovItemId="B8" CovItemPrefix="login.LoginFrame.java" Implct="false" Intrnl_Id="169">
+                                                <Cond>
+                                                    <Loc EndOffset="8434" SrcFileId="1" StartOffset="8430"/>
+                                                </Cond>
+                                                <LocList>
+                                                    <Loc EndOffset="8980" SrcFileId="1" StartOffset="8435"/>
+                                                </LocList>
+                                                <StmntSeq Intrnl_Id="170">
+                                                    <LocList>
+                                                        <Loc EndOffset="8980" SrcFileId="1" StartOffset="8435"/>
+                                                    </LocList>
+                                                    <CondStmnt CovItemId="S125" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="171">
+                                                        <Branch CovItemId="B9" CovItemPrefix="login.LoginFrame.java" Implct="false" Intrnl_Id="172">
+                                                            <Cond/>
+                                                            <LocList>
+                                                                <Loc EndOffset="8759" SrcFileId="1" StartOffset="8651"/>
+                                                            </LocList>
+                                                            <StmntSeq Intrnl_Id="173">
+                                                                <LocList>
+                                                                    <Loc EndOffset="8702" SrcFileId="1" StartOffset="8664"/>
+                                                                    <Loc EndOffset="8747" SrcFileId="1" StartOffset="8708"/>
+                                                                </LocList>
+                                                                <BasicStmnt CovItemId="S126" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="174">
+                                                                    <LocList>
+                                                                        <Loc EndOffset="8702" SrcFileId="1" StartOffset="8664"/>
+                                                                    </LocList>
+                                                                </BasicStmnt>
+                                                                <BasicStmnt CovItemId="S127" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="175">
+                                                                    <LocList>
+                                                                        <Loc EndOffset="8747" SrcFileId="1" StartOffset="8708"/>
+                                                                    </LocList>
+                                                                </BasicStmnt>
+                                                            </StmntSeq>
+                                                        </Branch>
+                                                        <Branch CovItemId="B10" CovItemPrefix="login.LoginFrame.java" Implct="false" Intrnl_Id="176">
+                                                            <Cond>
+                                                                <Loc EndOffset="8773" SrcFileId="1" StartOffset="8769"/>
+                                                            </Cond>
+                                                            <LocList>
+                                                                <Loc EndOffset="8980" SrcFileId="1" StartOffset="8774"/>
+                                                            </LocList>
+                                                            <StmntSeq Intrnl_Id="177">
+                                                                <LocList>
+                                                                    <Loc EndOffset="8980" SrcFileId="1" StartOffset="8774"/>
+                                                                </LocList>
+                                                                <CondStmnt CovItemId="S128" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="178">
+                                                                    <Branch CovItemId="B11" CovItemPrefix="login.LoginFrame.java" Implct="false" Intrnl_Id="179">
+                                                                        <Cond/>
+                                                                        <LocList>
+                                                                            <Loc EndOffset="8980" SrcFileId="1" StartOffset="8880"/>
+                                                                        </LocList>
+                                                                        <StmntSeq Intrnl_Id="180">
+                                                                            <LocList>
+                                                                                <Loc EndOffset="8925" SrcFileId="1" StartOffset="8887"/>
+                                                                                <Loc EndOffset="8974" SrcFileId="1" StartOffset="8931"/>
+                                                                            </LocList>
+                                                                            <BasicStmnt CovItemId="S129" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="181">
+                                                                                <LocList>
+                                                                                    <Loc EndOffset="8925" SrcFileId="1" StartOffset="8887"/>
+                                                                                </LocList>
+                                                                            </BasicStmnt>
+                                                                            <BasicStmnt CovItemId="S130" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="182">
+                                                                                <LocList>
+                                                                                    <Loc EndOffset="8974" SrcFileId="1" StartOffset="8931"/>
+                                                                                </LocList>
+                                                                            </BasicStmnt>
+                                                                        </StmntSeq>
+                                                                    </Branch>
+                                                                    <Branch CovItemId="B12" CovItemPrefix="login.LoginFrame.java" Implct="true" Intrnl_Id="183">
+                                                                        <Cond/>
+                                                                        <LocList/>
+                                                                        <StmntSeq Intrnl_Id="184">
+                                                                            <LocList/>
+                                                                        </StmntSeq>
+                                                                    </Branch>
+                                                                    <Keyword EndOffset="8776" SrcFileId="1" StartOffset="8774"/>
+                                                                    <LocList>
+                                                                        <Loc EndOffset="8980" SrcFileId="1" StartOffset="8774"/>
+                                                                    </LocList>
+                                                                    <RootTerm CovItemId="C5" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="185">
+                                                                        <OpTerm BooleanOpId="3" Intrnl_Id="186">
+                                                                            <OpTerm BooleanOpId="3" Intrnl_Id="187">
+                                                                                <BasicBoolTerm Intrnl_Id="188">
+                                                                                    <LocList>
+                                                                                        <Loc EndOffset="8802" SrcFileId="1" StartOffset="8778"/>
+                                                                                    </LocList>
+                                                                                </BasicBoolTerm>
+                                                                                <OpTerm BooleanOpId="4" Intrnl_Id="189">
+                                                                                    <BasicBoolTerm Intrnl_Id="190">
+                                                                                        <LocList>
+                                                                                            <Loc EndOffset="8848" SrcFileId="1" StartOffset="8814"/>
+                                                                                        </LocList>
+                                                                                    </BasicBoolTerm>
+                                                                                    <LocList>
+                                                                                        <Loc EndOffset="8813" SrcFileId="1" StartOffset="8812"/>
+                                                                                    </LocList>
+                                                                                </OpTerm>
+                                                                                <LocList>
+                                                                                    <Loc EndOffset="8805" SrcFileId="1" StartOffset="8803"/>
+                                                                                </LocList>
+                                                                            </OpTerm>
+                                                                            <OpTerm BooleanOpId="4" Intrnl_Id="191">
+                                                                                <BasicBoolTerm Intrnl_Id="192">
+                                                                                    <LocList>
+                                                                                        <Loc EndOffset="8877" SrcFileId="1" StartOffset="8855"/>
+                                                                                    </LocList>
+                                                                                </BasicBoolTerm>
+                                                                                <LocList>
+                                                                                    <Loc EndOffset="8854" SrcFileId="1" StartOffset="8853"/>
+                                                                                </LocList>
+                                                                            </OpTerm>
+                                                                            <LocList>
+                                                                                <Loc EndOffset="8852" SrcFileId="1" StartOffset="8850"/>
+                                                                            </LocList>
+                                                                        </OpTerm>
+                                                                    </RootTerm>
+                                                                </CondStmnt>
+                                                            </StmntSeq>
+                                                        </Branch>
+                                                        <Keyword EndOffset="8437" SrcFileId="1" StartOffset="8435"/>
+                                                        <LocList>
+                                                            <Loc EndOffset="8980" SrcFileId="1" StartOffset="8435"/>
+                                                        </LocList>
+                                                        <RootTerm CovItemId="C4" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="193">
+                                                            <OpTerm BooleanOpId="2" Intrnl_Id="194">
+                                                                <OpTerm BooleanOpId="4" Intrnl_Id="195">
+                                                                    <BasicBoolTerm Intrnl_Id="196">
+                                                                        <LocList>
+                                                                            <Loc EndOffset="8465" SrcFileId="1" StartOffset="8441"/>
+                                                                        </LocList>
+                                                                    </BasicBoolTerm>
+                                                                    <LocList>
+                                                                        <Loc EndOffset="8440" SrcFileId="1" StartOffset="8439"/>
+                                                                    </LocList>
+                                                                </OpTerm>
+                                                                <OpTerm BooleanOpId="3" Intrnl_Id="197">
+                                                                    <OpTerm BooleanOpId="2" Intrnl_Id="198">
+                                                                        <BasicBoolTerm Intrnl_Id="199">
+                                                                            <LocList>
+                                                                                <Loc EndOffset="8512" SrcFileId="1" StartOffset="8478"/>
+                                                                            </LocList>
+                                                                        </BasicBoolTerm>
+                                                                        <OpTerm BooleanOpId="4" Intrnl_Id="200">
+                                                                            <BasicBoolTerm Intrnl_Id="201">
+                                                                                <LocList>
+                                                                                    <Loc EndOffset="8582" SrcFileId="1" StartOffset="8523"/>
+                                                                                </LocList>
+                                                                            </BasicBoolTerm>
+                                                                            <LocList>
+                                                                                <Loc EndOffset="8523" SrcFileId="1" StartOffset="8522"/>
+                                                                            </LocList>
+                                                                        </OpTerm>
+                                                                        <LocList>
+                                                                            <Loc EndOffset="8515" SrcFileId="1" StartOffset="8513"/>
+                                                                        </LocList>
+                                                                    </OpTerm>
+                                                                    <OpTerm BooleanOpId="2" Intrnl_Id="202">
+                                                                        <BasicBoolTerm Intrnl_Id="203">
+                                                                            <LocList>
+                                                                                <Loc EndOffset="8616" SrcFileId="1" StartOffset="8594"/>
+                                                                            </LocList>
+                                                                        </BasicBoolTerm>
+                                                                        <OpTerm BooleanOpId="4" Intrnl_Id="204">
+                                                                            <BasicBoolTerm Intrnl_Id="205">
+                                                                                <LocList>
+                                                                                    <Loc EndOffset="8646" SrcFileId="1" StartOffset="8622"/>
+                                                                                </LocList>
+                                                                            </BasicBoolTerm>
+                                                                            <LocList>
+                                                                                <Loc EndOffset="8621" SrcFileId="1" StartOffset="8620"/>
+                                                                            </LocList>
+                                                                        </OpTerm>
+                                                                        <LocList>
+                                                                            <Loc EndOffset="8619" SrcFileId="1" StartOffset="8617"/>
+                                                                        </LocList>
+                                                                    </OpTerm>
+                                                                    <LocList>
+                                                                        <Loc EndOffset="8592" SrcFileId="1" StartOffset="8590"/>
+                                                                    </LocList>
+                                                                </OpTerm>
+                                                                <LocList>
+                                                                    <Loc EndOffset="8469" SrcFileId="1" StartOffset="8467"/>
+                                                                </LocList>
+                                                            </OpTerm>
+                                                        </RootTerm>
+                                                    </CondStmnt>
+                                                </StmntSeq>
+                                            </Branch>
+                                            <Keyword EndOffset="7892" SrcFileId="1" StartOffset="7890"/>
+                                            <LocList>
+                                                <Loc EndOffset="8980" SrcFileId="1" StartOffset="7890"/>
+                                            </LocList>
+                                            <RootTerm CovItemId="C3" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="206">
+                                                <OpTerm BooleanOpId="2" Intrnl_Id="207">
+                                                    <OpTerm BooleanOpId="4" Intrnl_Id="208">
+                                                        <BasicBoolTerm Intrnl_Id="209">
+                                                            <LocList>
+                                                                <Loc EndOffset="7919" SrcFileId="1" StartOffset="7895"/>
+                                                            </LocList>
+                                                        </BasicBoolTerm>
+                                                        <LocList>
+                                                            <Loc EndOffset="7894" SrcFileId="1" StartOffset="7893"/>
+                                                        </LocList>
+                                                    </OpTerm>
+                                                    <OpTerm BooleanOpId="3" Intrnl_Id="210">
+                                                        <OpTerm BooleanOpId="2" Intrnl_Id="211">
+                                                            <BasicBoolTerm Intrnl_Id="212">
+                                                                <LocList>
+                                                                    <Loc EndOffset="7967" SrcFileId="1" StartOffset="7933"/>
+                                                                </LocList>
+                                                            </BasicBoolTerm>
+                                                            <BasicBoolTerm Intrnl_Id="213">
+                                                                <LocList>
+                                                                    <Loc EndOffset="8038" SrcFileId="1" StartOffset="7979"/>
+                                                                </LocList>
+                                                            </BasicBoolTerm>
+                                                            <LocList>
+                                                                <Loc EndOffset="7978" SrcFileId="1" StartOffset="7976"/>
+                                                            </LocList>
+                                                        </OpTerm>
+                                                        <OpTerm BooleanOpId="2" Intrnl_Id="214">
+                                                            <BasicBoolTerm Intrnl_Id="215">
+                                                                <LocList>
+                                                                    <Loc EndOffset="8073" SrcFileId="1" StartOffset="8051"/>
+                                                                </LocList>
+                                                            </BasicBoolTerm>
+                                                            <BasicBoolTerm Intrnl_Id="216">
+                                                                <LocList>
+                                                                    <Loc EndOffset="8101" SrcFileId="1" StartOffset="8077"/>
+                                                                </LocList>
+                                                            </BasicBoolTerm>
+                                                            <LocList>
+                                                                <Loc EndOffset="8076" SrcFileId="1" StartOffset="8074"/>
+                                                            </LocList>
+                                                        </OpTerm>
+                                                        <LocList>
+                                                            <Loc EndOffset="8049" SrcFileId="1" StartOffset="8047"/>
+                                                        </LocList>
+                                                    </OpTerm>
+                                                    <LocList>
+                                                        <Loc EndOffset="7923" SrcFileId="1" StartOffset="7921"/>
+                                                    </LocList>
+                                                </OpTerm>
+                                            </RootTerm>
+                                        </CondStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Branch CovItemId="B6" CovItemPrefix="login.LoginFrame.java" Implct="true" Intrnl_Id="217">
+                                    <Cond/>
+                                    <LocList/>
+                                    <StmntSeq Intrnl_Id="218">
+                                        <LocList/>
+                                    </StmntSeq>
+                                </Branch>
+                                <Keyword EndOffset="7003" SrcFileId="1" StartOffset="7001"/>
+                                <LocList>
+                                    <Loc EndOffset="8990" SrcFileId="1" StartOffset="7001"/>
+                                </LocList>
+                                <RootTerm CovItemId="C2" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="219">
+                                    <BasicBoolTerm Intrnl_Id="220">
+                                        <LocList>
+                                            <Loc EndOffset="7030" SrcFileId="1" StartOffset="7004"/>
+                                        </LocList>
+                                    </BasicBoolTerm>
+                                </RootTerm>
+                            </CondStmnt>
+                            <CondStmnt CovItemId="S131" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="221">
+                                <Branch CovItemId="B13" CovItemPrefix="login.LoginFrame.java" Implct="false" Intrnl_Id="222">
+                                    <Cond/>
+                                    <LocList>
+                                        <Loc EndOffset="9099" SrcFileId="1" StartOffset="9030"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="223">
+                                        <LocList>
+                                            <Loc EndOffset="9094" SrcFileId="1" StartOffset="9036"/>
+                                        </LocList>
+                                        <BasicStmnt CovItemId="S132" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="224">
+                                            <LocList>
+                                                <Loc EndOffset="9094" SrcFileId="1" StartOffset="9036"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Branch CovItemId="B14" CovItemPrefix="login.LoginFrame.java" Implct="true" Intrnl_Id="225">
+                                    <Cond/>
+                                    <LocList/>
+                                    <StmntSeq Intrnl_Id="226">
+                                        <LocList/>
+                                    </StmntSeq>
+                                </Branch>
+                                <Keyword EndOffset="9000" SrcFileId="1" StartOffset="8998"/>
+                                <LocList>
+                                    <Loc EndOffset="9099" SrcFileId="1" StartOffset="8998"/>
+                                </LocList>
+                                <RootTerm CovItemId="C6" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="227">
+                                    <BasicBoolTerm Intrnl_Id="228">
+                                        <LocList>
+                                            <Loc EndOffset="9028" SrcFileId="1" StartOffset="9001"/>
+                                        </LocList>
+                                    </BasicBoolTerm>
+                                </RootTerm>
+                            </CondStmnt>
+                            <CondStmnt CovItemId="S133" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="229">
+                                <Branch CovItemId="B15" CovItemPrefix="login.LoginFrame.java" Implct="false" Intrnl_Id="230">
+                                    <Cond/>
+                                    <LocList>
+                                        <Loc EndOffset="9338" SrcFileId="1" StartOffset="9138"/>
+                                    </LocList>
+                                    <StmntSeq Intrnl_Id="231">
+                                        <LocList>
+                                            <Loc EndOffset="9179" SrcFileId="1" StartOffset="9144"/>
+                                            <Loc EndOffset="9215" SrcFileId="1" StartOffset="9184"/>
+                                            <Loc EndOffset="9235" SrcFileId="1" StartOffset="9220"/>
+                                            <Loc EndOffset="9333" SrcFileId="1" StartOffset="9260"/>
+                                        </LocList>
+                                        <BasicStmnt CovItemId="S134" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="232">
+                                            <LocList>
+                                                <Loc EndOffset="9179" SrcFileId="1" StartOffset="9144"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                        <BasicStmnt CovItemId="S135" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="233">
+                                            <LocList>
+                                                <Loc EndOffset="9215" SrcFileId="1" StartOffset="9184"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                        <BasicStmnt CovItemId="S136" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="234">
+                                            <LocList>
+                                                <Loc EndOffset="9235" SrcFileId="1" StartOffset="9220"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                        <BasicStmnt CovItemId="S137" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="235">
+                                            <LocList>
+                                                <Loc EndOffset="9333" SrcFileId="1" StartOffset="9260"/>
+                                            </LocList>
+                                        </BasicStmnt>
+                                    </StmntSeq>
+                                </Branch>
+                                <Branch CovItemId="B16" CovItemPrefix="login.LoginFrame.java" Implct="true" Intrnl_Id="236">
+                                    <Cond/>
+                                    <LocList/>
+                                    <StmntSeq Intrnl_Id="237">
+                                        <LocList/>
+                                    </StmntSeq>
+                                </Branch>
+                                <Keyword EndOffset="9109" SrcFileId="1" StartOffset="9107"/>
+                                <LocList>
+                                    <Loc EndOffset="9338" SrcFileId="1" StartOffset="9107"/>
+                                </LocList>
+                                <RootTerm CovItemId="C7" CovItemPrefix="login.LoginFrame.java" Intrnl_Id="238">
+                                    <BasicBoolTerm Intrnl_Id="239">
+                                        <LocList>
+                                            <Loc EndOffset="9136" SrcFileId="1" StartOffset="9110"/>
+                                        </LocList>
+                                    </BasicBoolTerm>
+                                </RootTerm>
+                            </CondStmnt>
+                        </StmntSeq>
+                    </HierarchyLvl>
+                </HierarchyLvl>
+            </HierarchyLvl>
+        </HierarchyLvl>
+    </MASTRoot>
+</TestSessionContainer>

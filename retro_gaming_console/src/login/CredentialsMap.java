@@ -15,7 +15,7 @@ public class CredentialsMap {
 		addGuest(); // guest user, no registration required
 	}
 	
-	private void addDefault() {
+	void addDefault() {
 		Person mario = new Person("Super", "Mario", "supermario", LocalDate.parse("1988-10-11"), "supermario@nintendo.com", "ItsmeMario!1", new Scores(8,5));
 		Person luigi = new Person("Luigi", "Mario", "luigi", LocalDate.parse("1986-09-25"), "luigi@nintendo.com", "Number1!", new Scores(2,4));
 		Person pacman = new Person("Pac", "Man", "pacman", LocalDate.parse("1980-01-15"), "pacman80@gmail.com", "Paku-Paku80", new Scores(5,4));
@@ -27,9 +27,13 @@ public class CredentialsMap {
 		credentialsMap.put(isaac.getUsername(),isaac);
 	}
 	
-	private void addGuest() {
-		Person guest = new Person("Guest","User","guest", LocalDate.parse("2000-01-01"),"guestuser@mail.com","GuestUser_2000");
-		credentialsMap.put(guest.getUsername(),guest);
+	void addGuest() {
+		Person guestUser = new Person("Guest","User","guestuser", LocalDate.parse("2000-01-01"),"guestuser@mail.com","GuestUser_2000");
+		credentialsMap.put(guestUser.getUsername(),guestUser);
+	}
+	
+	void resetMap() {
+		credentialsMap.clear();
 	}
 	
 	public HashMap<String, Person> getLoginCredentials(){
