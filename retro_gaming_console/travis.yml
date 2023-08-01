@@ -1,0 +1,10 @@
+language: java
+sudo: false
+script:
+  - java --version
+  - ./mvnw clean install
+  - ./mvnw test
+# This is to enable CodeCov's coverage
+# If a build is successful, the code is submitted for coverage analysis
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
