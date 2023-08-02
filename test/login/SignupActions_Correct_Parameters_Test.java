@@ -57,6 +57,8 @@ public class SignupActions_Correct_Parameters_Test {
 	@Test
 	public void correct_test() {
 		
+		setupFacade.initMap();
+		
 		s1 = new SignupActions(signupFrame);
 		
 		signupFrame.nameField.setText(name);
