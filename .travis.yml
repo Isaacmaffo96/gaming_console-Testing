@@ -1,6 +1,6 @@
 os:
   - windows
-language: java
+language: shell
 jdk:
   - openjdk11
 before_install:
@@ -9,7 +9,6 @@ before_install:
       choco install maven;
       refreshenv;
     fi;
-sudo: false
 script:
   - export JAVA_HOME="${JAVA_HOME:-/c/jdk}"
   - |
