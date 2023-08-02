@@ -28,7 +28,7 @@ public class SignupActions_Correct_Parameters_Test {
 	String dateOfBirth;
 	String mail;
 	String password;
-	SignupActions s;
+	SignupActions s1;
 	
 	@Before
 	public void initFrame(){
@@ -37,7 +37,7 @@ public class SignupActions_Correct_Parameters_Test {
 	}
 	
 	@Parameters
-	public static Collection <String[]> setParameters(){
+	public static Collection <String[]> setCorrectParameters(){
 		List<String[]> params = new ArrayList<>();
 		params.add(new String[] {"Mario","Rossi","mariorossi23","1992-04-09","mariorossi@gmail.com","MarioRossi_23"});
 		params.add(new String[] {"Bianca","Ferrari","biancaaa","2001-09-04","biancaf@hotmail.it","BF!2001!bf"});
@@ -52,14 +52,12 @@ public class SignupActions_Correct_Parameters_Test {
 		this.dateOfBirth = dateOfBirth;
 		this.mail = mail;
 		this.password = password;
-		
-		
 	}
 	
 	@Test
-	public void test() {
+	public void correct_test() {
 		
-		s = new SignupActions(signupFrame);
+		s1 = new SignupActions(signupFrame);
 		
 		signupFrame.nameField.setText(name);
 		signupFrame.surnameField.setText(surname);
@@ -68,8 +66,8 @@ public class SignupActions_Correct_Parameters_Test {
 		signupFrame.mailField.setText(mail);
 		signupFrame.passwordField.setText(password);
 		
-		int result = s.signupButtonAction();
-		assertEquals(result,0);
+		int result1 = s1.signupButtonAction();
+		assertEquals(result1, 0);
 		assertEquals(signupFrame.messageLabel.getText(),"Account created successfully");
 	}
 

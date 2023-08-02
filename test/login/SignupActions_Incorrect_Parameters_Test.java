@@ -28,7 +28,7 @@ public class SignupActions_Incorrect_Parameters_Test {
 	String dateOfBirth;
 	String mail;
 	String password;
-	SignupActions s;
+	SignupActions s2;
 	
 	@Before
 	public void initFrame(){
@@ -37,7 +37,7 @@ public class SignupActions_Incorrect_Parameters_Test {
 	}
 	
 	@Parameters
-	public static Collection <String[]> setParameters(){
+	public static Collection <String[]> setIncorrectParameters(){
 		List<String[]> params = new ArrayList<>();
 		params.add(new String[] {"Isaac","Maffeis","isaacmaffo96","1996-05-10","isaacmaffo96@gmail.com","Im_1041473"}); // "Username already used"
 		params.add(new String[] {"Mario","","mariorossi23","1992-04-09","mariorossi@gmail.com","MarioRossi_23"}); // "One field empty"
@@ -57,9 +57,9 @@ public class SignupActions_Incorrect_Parameters_Test {
 	}
 	
 	@Test
-	public void test() {
+	public void incorrect_test() {
 		
-		s = new SignupActions(signupFrame);
+		s2 = new SignupActions(signupFrame);
 		
 		signupFrame.nameField.setText(name);
 		signupFrame.surnameField.setText(surname);
@@ -68,8 +68,8 @@ public class SignupActions_Incorrect_Parameters_Test {
 		signupFrame.mailField.setText(mail);
 		signupFrame.passwordField.setText(password);
 		
-		int result = s.signupButtonAction();
-		assertEquals(result, 1);
+		int result2 = s2.signupButtonAction();
+		assertEquals(result2, 1);
 		assertNotEquals(signupFrame.messageLabel.getText(),"Account created successfully"); // False
 	}
 

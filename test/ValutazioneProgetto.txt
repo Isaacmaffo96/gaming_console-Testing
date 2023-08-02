@@ -2,7 +2,7 @@ Criteri di Valutazione Progetto 23/06/2023 (x=obbl. | v=fatto)
 --------------------------------------------------------------
 -> Code testing (10pt)
 - |2|x|v| test con Junit 									
-- |1| | | test parametrici o altri framwork					
+- |1| |v| test parametrici o altri framwork					
 - |2|x|v| criteri di copertura base tipo statement	(copertura (su una calsse/package/intero progetto))		
 - |2| |v| criteria tipo MCDC o logici criteria tipo dataflow o loop o altri	(l'uso di criteri di copertura più severi e la creazione di casi di test ad hoc per quelli)
 - |1|x|v| continous integration (travis o altro)
