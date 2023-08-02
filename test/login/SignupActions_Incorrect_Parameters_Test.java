@@ -69,7 +69,7 @@ public class SignupActions_Incorrect_Parameters_Test {
 		signupFrame.passwordField.setText(password);
 		
 		int result = s.signupButtonAction();
-		assertTrue(result == 1);
+		assertEquals(result, 1);
 		assertNotEquals(signupFrame.messageLabel.getText(),"Account created successfully"); // False
 	}
 
