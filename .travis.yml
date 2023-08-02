@@ -4,17 +4,9 @@ language: shell
 jdk:
   - openjdk11
 before_install:
-  - |
-    if [ "$TRAVIS_OS_NAME" = "windows" ]; then 
-      choco install maven;
-      refreshenv;
-    fi;
+  - choco install maven;
+  - refreshenv;
 script:
   - export JAVA_HOME="${JAVA_HOME:-/c/jdk}"
-  - |
-    if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then
-        maven="$(find 'C:\ProgramData\chocolatey\lib\maven' -name mvn | head -n1)";
-    else
-        maven="mvn";
-    fi;
+  - maven="$(find 'C:\ProgramData\chocolatey\lib\maven' -name mvn | head -n1)";
   - $maven clean verify
