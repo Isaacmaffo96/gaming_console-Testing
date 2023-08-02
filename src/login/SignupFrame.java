@@ -194,9 +194,9 @@ public class SignupFrame extends JFrame implements ActionListener {
 
 			String name = nameField.getText();
 			String surname = surnameField.getText();
-			String username = usernameField.getText().toLowerCase().strip();
+			String username = usernameField.getText().toLowerCase().trim();
 			String dateOfBirth = dateOfBirthField.getText();
-			String mail = mailField.getText().toLowerCase().strip();
+			String mail = mailField.getText().toLowerCase().trim();
 			String password = String.valueOf(passwordField.getPassword());
 			messageLabel.setForeground(Color.red);
 

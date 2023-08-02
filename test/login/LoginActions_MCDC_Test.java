@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class LoginActions_MCDC {
+public class LoginActions_MCDC_Test {
 	
 	SetupFacade setupFacade;
 	LoginFrame loginFrame;

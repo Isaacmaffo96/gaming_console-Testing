@@ -224,7 +224,7 @@ public class LoginFrame extends JFrame implements ActionListener{
 		}
 		
 		if(e.getSource()==guestButton) {
-			user = credentialsMap.get("guestUser");
+			user = credentialsMap.get("guestuser");
 			user.getScores().resetScores();
 			this.dispose(); // close this frame
 			GamesFrame gamesFrame = new GamesFrame(user, setupFacade.getGamesList());
