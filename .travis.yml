@@ -5,3 +5,4 @@ language: java
 script: 
 - xvfb-run -a make test
 - xvfb-run -a --server-args="-screen 0 1024x768x24" make test
+- mvn clean verify
