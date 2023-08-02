@@ -5,7 +5,6 @@ jdk:
   - openjdk11
 before_install:
   - choco install maven;
-  - refreshenv;
 script:
   - export JAVA_HOME="${JAVA_HOME:-/c/jdk}"
   - maven="$(find 'C:\ProgramData\chocolatey\lib\maven' -name mvn | head -n1)";
