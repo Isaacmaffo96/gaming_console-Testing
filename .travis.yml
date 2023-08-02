@@ -3,5 +3,5 @@ services:
   - xvfb
 language: java
 script: 
-- xvfb-run make test
-- xvfb-run --server-args="-screen 0 1024x768x24" make test
+- xvfb-run -a make test
+- xvfb-run -a --server-args="-screen 0 1024x768x24" make test
