@@ -1,5 +1,6 @@
 games\Game.class
 games\GamesList.class
+login\SignupActions.class
 login\LoginFrame$1.class
 main\Main_test.class
 tictactoe\TicTacToePanel.class

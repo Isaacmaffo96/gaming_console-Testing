@@ -1,2 +1,4 @@
+login\SignupActions_Incorrect_Parameters_Test.class
+login\SignupActions_Correct_Parameters_Test.class
 login\LoginActions_MCDC_Test.class
 login\LoginActions_Test.class

@@ -45,6 +45,7 @@ public class SignupFrame extends JFrame implements ActionListener {
 	JLabel messageLabel = new JLabel();
 	JPanel fieldsPanel = new JPanel();
 	HashMap<String, Person> credentialsMap;
+	SignupActions signupActions;
 
 	public SignupFrame(HashMap<String, Person> credentialsMap) {
 		this.credentialsMap = credentialsMap;
@@ -64,6 +65,7 @@ public class SignupFrame extends JFrame implements ActionListener {
 		this.setFields();
 
 		// pack(); // resize to accommodate all the components
+		signupActions = new SignupActions(this);
 
 		this.setLayout(null); // custom layout
 		this.setVisible(true); // frame visible
@@ -191,71 +193,9 @@ public class SignupFrame extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == signupButton) {
-
-			String name = nameField.getText();
-			String surname = surnameField.getText();
-			String username = usernameField.getText().toLowerCase().trim();
-			String dateOfBirth = dateOfBirthField.getText();
-			String mail = mailField.getText().toLowerCase().trim();
-			String password = String.valueOf(passwordField.getPassword());
-			messageLabel.setForeground(Color.red);
-
-			// fields check
-			if (name.isEmpty() || surname.isEmpty() || username.isEmpty() || dateOfBirth.isEmpty() || mail.isEmpty()
-					|| password.isEmpty()) {
-				messageLabel.setText("Please fill in all fields");
-				return;
-			}
-
-			// username check
-			if (credentialsMap.containsKey(username)) {
-				messageLabel.setText("Username already used");
-				return;
-			}
-
-			// dateOfBirth check
-			if (!dateOfBirth.matches("(\\d){4}(\\-)(\\d){2}(\\-)(\\d){2}")) { // YYYY-MM-DD
-				messageLabel.setText("Date format YYYY-MM-DD");
-				JOptionPane.showMessageDialog(this, "Date format YYYY-MM-DD\nexample: 1992-12-22",
-						"Date of Birth Field Error", JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-
-			// mail check
-			if (!mail.matches(
-					"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")) {
-				messageLabel.setText("Incorrect mail format");
-				return;
-			}
-
-			// password check
-			// must contain at least one digit [0-9]
-			// must contain at least one lowercase Latin character [a-z]
-			// must contain at least one uppercase Latin character [A-Z]
-			// must contain at least one special character [!@#&()–_[{}]:;',?/*~$^+=<>]
-			// must contain a length of at least 8 characters and a maximum of 20 characters
-			if (!password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–_[{}]:;',?/*~$^+=<>]).{8,20}$")) {
-				messageLabel.setText("Password not valid");
-				JOptionPane.showMessageDialog(this,
-						"The password:\r\n" + "must contain at least one digit [0-9];\r\n"
-								+ "must contain at least one lowercase Latin character [a-z];\r\n"
-								+ "must contain at least one uppercase Latin character [A-Z];\r\n"
-								+ "must contain at least one special character [!@#&()–_[{}]:;',?/*~$^+=<>];\r\n"
-								+ "must contain a length of at least 8 characters and a maximum of 20 characters.",
-						"Password Field Error", JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-
-			Person newUser = new Person(name, surname, username, LocalDate.parse(dateOfBirth), mail, password);
-			credentialsMap.put(username, newUser);
-			messageLabel.setForeground(Color.green);
-			messageLabel.setText("Account created successfully");
-			JOptionPane.showMessageDialog(this, "Account created successfully,\nyou can now complete the login.",
-					"Signed up!", JOptionPane.INFORMATION_MESSAGE);
-			this.dispose();
-
+			signupActions.signupButtonAction();
 		}
-
+		
 		if (e.getSource() == infoDateOfBithButton) {
 			JOptionPane.showMessageDialog(this, "Date format YYYY-MM-DD\nexample: 1992-12-22",
 					"Date of Birth Field Info", JOptionPane.INFORMATION_MESSAGE);
