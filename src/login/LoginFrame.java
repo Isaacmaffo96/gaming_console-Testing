@@ -210,9 +210,7 @@ public class LoginFrame extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource()==resetButton) {
-			userIDField.setText("");
-			userPasswordField.setText("");
-			messageLabel.setText("");
+			loginActions.resetButtonAction();
 		}
 		
 		if(e.getSource()==loginButton) {
@@ -224,10 +222,7 @@ public class LoginFrame extends JFrame implements ActionListener{
 		}
 		
 		if(e.getSource()==guestButton) {
-			user = credentialsMap.get("guestuser");
-			user.getScores().resetScores();
-			this.dispose(); // close this frame
-			GamesFrame gamesFrame = new GamesFrame(user, setupFacade.getGamesList());
+			loginActions.guestButtonAction();
 		}
 	}	
 	

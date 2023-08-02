@@ -14,6 +14,12 @@ public class LoginActions {
 		this.loginFrame = loginFrame;
 	}
 	
+	void resetButtonAction() {
+		loginFrame.userIDField.setText("");
+		loginFrame.userPasswordField.setText("");
+		loginFrame.messageLabel.setText("");
+	}
+	
 	void loginButtonAction() {
 		
 		userID = loginFrame.userIDField.getText().toLowerCase();
@@ -70,4 +76,14 @@ public class LoginActions {
 		
 	}
 
+
+	void guestButtonAction() {
+		loginFrame.user = loginFrame.credentialsMap.get("guestuser");
+		loginFrame.user.getScores().resetScores();
+		loginFrame.messageLabel.setForeground(Color.green);
+		loginFrame.messageLabel.setText("Guest login successful");
+		loginFrame.dispose(); // close this frame
+		GamesFrame gamesFrame = new GamesFrame(loginFrame.user, loginFrame.setupFacade.getGamesList());
+	}
+	
 }
