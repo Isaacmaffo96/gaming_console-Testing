@@ -16,7 +16,7 @@ public class Scores {
 
 	public void resetScores() {
 		this.game1Score = 0;
-		this.game2Score = 0;
+		this.game2Score = 5; // worst score for tic tac toe is 5
 	}
 
 	public int getGame1Score() {
