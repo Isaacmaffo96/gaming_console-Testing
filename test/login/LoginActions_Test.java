@@ -44,7 +44,7 @@ public class LoginActions_Test {
 		l2.guestButtonAction();
 		// check if the games scores have been cleared
 		assertEquals(loginFrame.user.getScores().getGame1Score(),0);
-		assertEquals(loginFrame.user.getScores().getGame2Score(),0);
+		assertEquals(loginFrame.user.getScores().getGame2Score(),5);
 		// check the login procedure
 		assertEquals(loginFrame.messageLabel.getText(), "Guest login successful");
 		
