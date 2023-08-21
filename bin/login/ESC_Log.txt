@@ -1,0 +1,48 @@
+ESC LOG
+
+Using external solver C:\Users\isaac\Documents\tools_x_tvsw_2023\cover_JML\Solvers-master\Solvers-windows\z3-4.3.2.exe
+Proving methods in login.SignupActions_V
+Starting proof of login.SignupActions_V.SignupActions_V(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String) with prover z3_4_3
+Method assertions are validated [1,72 secs]
+C:\Users\isaac\workspace-testing2023-openJML\gaming_console-Testing\verification\login\SignupActions_V.java:15: Feasibility check #1 - end of preconditions : OK [0,13 secs]
+C:\Users\isaac\workspace-testing2023-openJML\gaming_console-Testing\verification\login\SignupActions_V.java:15: Feasibility check #40 - at program exit : OK [0,12 secs]
+Completed proof of login.SignupActions_V.SignupActions_V(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String) with prover z3_4_3 - no warnings [2,04 secs]
+Starting proof of login.SignupActions_V.checkdateOfBirth() with prover z3_4_3
+Method assertions are validated [2,01 secs]
+C:\Users\isaac\workspace-testing2023-openJML\gaming_console-Testing\verification\login\SignupActions_V.java:61: Feasibility check #1 - end of preconditions : OK [0,04 secs]
+C:\Users\isaac\workspace-testing2023-openJML\gaming_console-Testing\verification\login\SignupActions_V.java:61: Feasibility check #69 - at program exit : OK [0,41 secs]
+Completed proof of login.SignupActions_V.checkdateOfBirth() with prover z3_4_3 - no warnings [2,53 secs]
+Starting proof of login.SignupActions_V.checkMail() with prover z3_4_3
+Method assertions are validated [1,97 secs]
+C:\Users\isaac\workspace-testing2023-openJML\gaming_console-Testing\verification\login\SignupActions_V.java:69: Feasibility check #1 - end of preconditions : OK [0,15 secs]
+C:\Users\isaac\workspace-testing2023-openJML\gaming_console-Testing\verification\login\SignupActions_V.java:69: Feasibility check #114 - at program exit : OK [0,26 secs]
+Completed proof of login.SignupActions_V.checkMail() with prover z3_4_3 - no warnings [2,55 secs]
+Starting proof of login.SignupActions_V.checkPassword() with prover z3_4_3
+Method assertions are validated [2,32 secs]
+C:\Users\isaac\workspace-testing2023-openJML\gaming_console-Testing\verification\login\SignupActions_V.java:79: Feasibility check #1 - end of preconditions : OK [0,03 secs]
+C:\Users\isaac\workspace-testing2023-openJML\gaming_console-Testing\verification\login\SignupActions_V.java:79: Feasibility check #109 - at program exit : OK [0,21 secs]
+Completed proof of login.SignupActions_V.checkPassword() with prover z3_4_3 - no warnings [2,66 secs]
+Starting proof of login.SignupActions_V.checkUsername() with prover z3_4_3
+Method assertions are validated [1,60 secs]
+C:\Users\isaac\workspace-testing2023-openJML\gaming_console-Testing\verification\login\SignupActions_V.java:47: Feasibility check #1 - end of preconditions : OK [0,31 secs]
+C:\Users\isaac\workspace-testing2023-openJML\gaming_console-Testing\verification\login\SignupActions_V.java:47: Feasibility check #35 - at program exit : OK [0,03 secs]
+Completed proof of login.SignupActions_V.checkUsername() with prover z3_4_3 - no warnings [1,98 secs]
+Starting proof of login.SignupActions_V.chekFields() with prover z3_4_3
+Method assertions are validated [1,95 secs]
+C:\Users\isaac\workspace-testing2023-openJML\gaming_console-Testing\verification\login\SignupActions_V.java:33: Feasibility check #1 - end of preconditions : OK [0,64 secs]
+C:\Users\isaac\workspace-testing2023-openJML\gaming_console-Testing\verification\login\SignupActions_V.java:33: Feasibility check #36 - at program exit : OK [0,19 secs]
+Completed proof of login.SignupActions_V.chekFields() with prover z3_4_3 - no warnings [2,83 secs]
+Completed proving methods in login.SignupActions_V [15,16 secs]
+Summary:
+    Valid:        6
+    Invalid:      0
+    Infeasible:   0
+    Timeout:      0
+    Error:        0
+    Skipped:      0
+   TOTAL METHODS: 6
+   Classes:       1 proved of 1
+   Model Classes: 0
+   Model methods: 0 proved of 0
+   DURATION:         15,5 secs
+[16,44] Completed

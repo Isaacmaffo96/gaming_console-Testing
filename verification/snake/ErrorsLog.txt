@@ -1,0 +1,38 @@
+ERRORS LOG
+
+-> 	Exception in thread "AWT-EventQueue-0" java.lang.NoSuchFieldError: direction
+	at snake.SnakePanel$MyKeyAdapter.keyPressed(SnakePanel.java:234)
+
+	Problemi nella verifica JML con la classe interna MyKeyAdapter di SnakePanel.
+	
+	In particolare il tipo di eccezione indica che l'applicazione dalla classe MyKeyAdapter tenta 
+	di accedere e/o modificare il campo direction della classe SnakePanel ma l'oggetto non ha più quel campo.
+	
+	Presumo ci siano problemi tra JML e classi di tipo Action Listener 
+	
+	Quindi per la parte di verifica simulo il comportamento di questa classe (MyKeyAdapter) con un metodo 
+	offerto dalla stessa classe SnakePanel
+	
+	Passo perciò da un main di verifica nel quale con una classe Robot simulo il comportamento di un giocatore
+	che preme i tasti a un main nel quale passo direttamente le direzioni alla classe SnakePanel.
+	
+->	C:\Users\isaac\Documents\tools_x_tvsw_2023\cover_JML\eclipse\configuration\org.eclipse.osgi\614\0\.cp\specs\java\awt\Color.jml:43: 
+	error: The specification must include all the annotations that the Java declaration declares: 
+	@java.beans.ConstructorProperties({"red", "green", "blue", "alpha"})
+    public Color(int Param0, int Param1, int Param2, int Param3);
+    
+    Problemi con la classe Color
+    
+    Risolto utilizzando la verifica senza i colori
+    
+->	[0,00] Executing openjml on SnakePanelVerification.java
+	RAC-Compiling snake.SnakePanelVerification
+	RAC-Compiling snake.SnakeFrame_V
+	RAC-Compiling snake.SnakePanel_V
+	[2,24] Completed
+ 
+->	C:\Users\isaac\workspace-testing2023-openJML\gaming_console-Testing\verification\snake\SnakePanel_V.java:24: JML non-null field is null
+	Timer timer;
+	
+	Poichè il campo timer è inizialmente nullo e viene inizializzato nel costruttore
+  
