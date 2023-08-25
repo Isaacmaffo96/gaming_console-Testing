@@ -20,8 +20,8 @@ Criteri di Valutazione Progetto 23/06/2023 (x=obbl. | v=fatto)
 -> modeling (9pt)
 - |3|x|v| Costruzione modello ASM
 - |0|x|v| simulazione/animazione
-- |2|x| | scenario validation
-- |2|x| | model checking ASMETASMV
+- |2|x|v| scenario validation
+- |2|x|v| model checking ASMETASMV
 - |1| | | model review - model advisor
 - |1| | | atgt
 --------------------------------------------------------------

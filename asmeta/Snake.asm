@@ -27,10 +27,12 @@
 asm Snake
 
 import StandardLibrary
+import CTLlibrary
 
 signature:
 	// DOMAINS
 	domain Coord subsetof Integer
+	// domain Score subsetof Integer // for CTL
 	enum domain Sign = {WALL |HEAD| BODY | APPLE }
 	enum domain Status = {SETUP | IN_GAME | GAME_OVER}
 	enum domain Direction = {UP | DOWN | RIGHT | LEFT}
@@ -38,6 +40,7 @@ signature:
 	controlled board: Prod(Coord, Coord) -> Sign
 	controlled status: Status
 	controlled score: Integer
+	// controlled score: Score // for CTL
 	controlled headx: Coord
 	controlled heady: Coord
 	controlled applex: Coord
@@ -48,6 +51,7 @@ signature:
 definitions:
 	// DOMAIN DEFINITIONS
 	domain Coord = {1 : 6}
+	//domain Score = {0 : 36} // for CTL
 
 	// FUNCTION DEFINITIONS
 		
@@ -169,6 +173,33 @@ definitions:
 		not(exist $x2 in Coord with applex = $x2 and appley = 6) or 
 		not(exist $y1 in Coord with applex = 1 and appley = $y1) or 
 		not(exist $y2 in Coord with applex = 6 and appley = $y2))
+		
+	// CTL properties
+	// Reachability Property
+	// exists a future state satisfying a property φ
+	CTLSPEC ef(status=SETUP)
+	CTLSPEC ef(status=IN_GAME)
+	CTLSPEC ef(status=GAME_OVER)
+	CTLSPEC ef(board(3,4)=APPLE)
+	CTLSPEC ef(score > 0)
+	
+	// Safety property
+	// “Nothing bad will happen”
+	CTLSPEC ag(not(status=SETUP and status=IN_GAME))
+	CTLSPEC ag(not(status=IN_GAME and status=GAME_OVER))
+	CTLSPEC ag(not(applex=undef and appley=undef) implies not(applex=headx and appley=heady))   // apple coords must always be different from those of the head
+	CTLSPEC ag(not (status=IN_GAME) or (board(1,1)=WALL and (board(1,2)=WALL) and (board(1,3)=WALL) 
+		and (board(1,4)=WALL) and (board(1,5)=WALL))) // top borders must always be walls in status=IN_GAME
+	CTLSPEC ag(not (status=IN_GAME) or (board(2,1)=WALL and (board(3,1)=WALL) and (board(4,1)=WALL) 
+		and (board(5,1)=WALL) and (board(6,1)=WALL))) // left borders must always be walls in status=IN_GAME
+	CTLSPEC ag(not (status=IN_GAME) or (board(6,2)=WALL and (board(6,3)=WALL) and (board(6,4)=WALL) 
+		and (board(6,5)=WALL) and (board(6,6)=WALL))) // bottom borders must always be walls in status=IN_GAME
+	CTLSPEC ag(not (status=IN_GAME) or (board(1,6)=WALL and (board(2,6)=WALL) and (board(3,6)=WALL) 
+		and (board(4,6)=WALL) and (board(5,6)=WALL))) // right borders must always be walls in status=IN_GAME
+	
+	// Liveness property
+	// “Something good will eventually happen”
+	CTLSPEC ag((not(board(3,4)=HEAD) and not isUndef(board(3,4))) implies score > 0) // snake ate the first apple
 	
 	// MAIN RULE
 	main rule r_Main =
