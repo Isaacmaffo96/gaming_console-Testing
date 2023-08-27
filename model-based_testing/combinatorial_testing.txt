@@ -1,0 +1,31 @@
+Combinatorial testing
+
+Model: Snake.asm
+Variables: Direction, Snake, Status.
+Domains:
+- Direction:[UP, DOWN, LEFT, RIGHT];
+- Snake: [MOVE, EAT, CRASH WALL, HIT BODY];
+- Status: [SET_UP, IN_GAME, GAME_OVER].
+
+IPO: In-Parameter-Order
+Pairwise testing t = 2
+*-----------------------------------------*
+|# | Direction  | Snake      | Status     |
+|--|------------|------------|------------|
+|1 | UP		    | MOVE	  	 | SET_UP	  |
+|2 | UP		    | EAT	   	 | IN_GAME    |
+|3 | UP		    | CRASH WALL | IN_GAME    |
+|4 | UP		    | HIT BODY   | GAME_OVER  |
+|5 | DONW	    | MOVE	     | IN_GAME    |
+|6 | DONW	    | EAT	     | SET_UP	  |
+|7 | DONW	    | CRASH WALL | GAME_OVER  |
+|8 | DONW	    | HIT BODY   | IN_GAME    |
+|9 | LEFT	    | MOVE	     | GAME_OVER  |
+|10| LEFT	    | EAT        | IN_GAME    |
+|11| LEFT	    | CRASH WALL | SET_UP	  |
+|12| LEFT	    | HIT BODY   | SET_UP	  |
+|13| RIGHT	    | MOVE	     | IN_GAME    |
+|14| RIGHT	    | EAT	     | GAME_OVER  |
+|15| RIGHT	    | CRASH WALL | SET_UP	  |
+|16| RIGHT	    | HIT BODY   | IN_GAME    |
+*-----------------------------------------*
