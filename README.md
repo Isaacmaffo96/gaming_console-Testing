@@ -1,7 +1,7 @@
 # Retro Gaming Console -Testing
  Exam project of the course: Testing and Software Verification
 
-### What tools and frameworks I have used:
+### What I have used ( tools, frameworks, ... ):
 
 ## Maven
 Maven's primary goal is to allow a developer to comprehend the complete state of a development effort in the shortest period of time. In order to attain this goal, Maven deals with several areas of concern:
