@@ -27,6 +27,6 @@ Criteri di Valutazione Progetto 23/06/2023 (x=obbl. | v=fatto)
 --------------------------------------------------------------
 -> model-based testing (8pt)
 - |1| | | input domain modeling
-- |3|x| | combinatorial testing
-- |4|x| | MBT - ATGT o itemi create o graphwalker
+- |3|x|v| combinatorial testing
+- |4|x|v| MBT - ATGT o itemi create o graphwalker
 --------------------------------------------------------------
