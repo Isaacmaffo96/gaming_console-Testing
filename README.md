@@ -45,6 +45,11 @@ Asmeta is a framework for the Abstract State Machines (ASMs) formal method. It i
 
 Asmeta: https://asmeta.github.io/index.html
 
+## GRAPH WALKER
+GraphWalker is a tool that addresses State Transition Model-Based Testing; in other words, it allows you to perform modeling around states and transitions between those states using directed graphs.
+
+Graph Walker: https://graphwalker.github.io/
+
 # The application:
 ### Login Frame
 A Frame that allows the user to authenticate in the system via username and password, it is also possible to access as a guest or create a new account (signUp).
