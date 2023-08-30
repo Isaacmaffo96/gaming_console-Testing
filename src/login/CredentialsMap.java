@@ -32,6 +32,10 @@ public class CredentialsMap {
 		credentialsMap.put(guestUser.getUsername(),guestUser);
 	}
 	
+	void removeGuest() {
+		credentialsMap.remove("guestuser");
+	}
+	
 	void resetMap() {
 		credentialsMap.clear();
 	}

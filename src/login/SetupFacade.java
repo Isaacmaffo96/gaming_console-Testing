@@ -38,6 +38,10 @@ public class SetupFacade {
 		credentialsMap.resetMap();
 	}
 	
+	public void removeGuest() {
+		credentialsMap.removeGuest();
+	}
+	
 	// available games list
 	public ArrayList<Game> getGamesList() {
 		return gamesList.getGamesList();

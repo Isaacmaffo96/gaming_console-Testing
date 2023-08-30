@@ -27,14 +27,13 @@ public class LoginActions {
 		
 		// Adapted for MCDC Testing purposes
 		
+		// Login successful
 		if(!(loginFrame.credentialsMap.isEmpty()) &&
 				(((loginFrame.credentialsMap.containsKey(userID)) 
 				&& (loginFrame.credentialsMap.get(userID)).getPassword().equals(password))
 				|| (userID.equals("guest") && password.equals("guest")))){
 			
-			if (userID.equals("guest") & password.equals("guest")) {
-				// bitwise operator & to avoid the short circuit evaluation
-				// in order to cover all the conditions in testing
+			if (userID.equals("guest")) {
 				if (loginFrame.credentialsMap.containsKey("guestuser")) {
 					loginFrame.messageLabel.setForeground(Color.green);
 					loginFrame.messageLabel.setText("Login successful");
@@ -56,22 +55,16 @@ public class LoginActions {
 			
 		}
 		
-		else if (!(loginFrame.credentialsMap.isEmpty()) &&
-				((loginFrame.credentialsMap.containsKey(userID) 
-				&& !(loginFrame.credentialsMap.get(userID).getPassword().equals(password)))
-				// It's Impossible to avoid the short circuit evaluation
-				// because otherwise you get the NullPointerException
-				// (trying to get a password from the map with the wrong userID)
-				|| (userID.equals("guest") & !(password.equals("guest"))))) {
-			
-			loginFrame.messageLabel.setForeground(Color.red);
-			loginFrame.messageLabel.setText("Wrong password");
-			
-		}
-		
-		else {
+		// Username not found
+		else if ((loginFrame.credentialsMap.isEmpty()) || ((!loginFrame.credentialsMap.containsKey(userID)) && (!userID.equals("guest"))) ) {
 			loginFrame.messageLabel.setForeground(Color.red);
 			loginFrame.messageLabel.setText("Username not found");
+		}
+		
+		// Wrong password
+		else {
+			loginFrame.messageLabel.setForeground(Color.red);
+			loginFrame.messageLabel.setText("Wrong password");
 		}
 		
 	}
