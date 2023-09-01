@@ -43,8 +43,7 @@ public class SignupActions_V {
 	
 	//@ requires array != null && array.length == 5;
 	//@ requires username != null;
-	// @ ensures ((\exists int j; j>=0 && j<5; array[j] == username) ==> \result == "Username already taken");
-	//@ ensures (!(\exists int j; j>=0 && j<5; array[j] == username) ==> \result == "username ok");
+	//@ ensures ((!(\exists int j; j>=0 && j<5; array[j] == username)) ==> (\result == "username ok"));
 	//@ normal_behavior
 	String checkUsername() {
 		// username check
@@ -84,12 +83,14 @@ public class SignupActions_V {
 		// must contain at least one digit [0-9]
 		// must contain at least one lowercase Latin character [a-z]
 		// must contain at least one uppercase Latin character [A-Z]
-		// must contain at least one special character [!@#&()–_[{}]:;',?/*~$^+=<>]
+		// must contain at least one special character [!@#&()â€“_[{}]:;',?/*~$^+=<>]
 		// must contain a length of at least 8 characters and a maximum of 20 characters
-		if (!password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–_[{}]:;',?/*~$^+=<>]).{8,20}$")) {
+		if (!password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()â€“_[{}]:;',?/*~$^+=<>]).{8,20}$")) {
 			return "Password not valid";
 		}
 		return "password ok";
 	}
+	
+	// ESC 100% VALID
 
 }

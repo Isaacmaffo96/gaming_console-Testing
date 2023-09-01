@@ -7,9 +7,9 @@ import java.util.Random;
 
 public class SnakePanel_V extends JPanel implements ActionListener{
 
-	/*@ spec_public*/ static final int SCREEN_WIDTH = 900;
-	/*@ spec_public*/ static final int SCREEN_HEIGHT = 506;
-	/*@ spec_public*/ static final int UNIT_SIZE = 50;
+	/*@ spec_public*/ static final int SCREEN_WIDTH = 900; //900
+	/*@ spec_public*/ static final int SCREEN_HEIGHT = 506; //506
+	/*@ spec_public*/ static final int UNIT_SIZE = 50; //50
 	/*@ spec_public*/ static final int GAME_UNITS = (SCREEN_WIDTH*SCREEN_HEIGHT)/(UNIT_SIZE*UNIT_SIZE);
 	static final int DELAY = 175;
 	/*@ spec_public*/ final int x[] = new int[GAME_UNITS];
@@ -21,8 +21,8 @@ public class SnakePanel_V extends JPanel implements ActionListener{
 	/*@ spec_public*/ int appleY;
 	/*@ spec_public*/ char direction = 'R';
 	/*@ spec_public*/ boolean running = false;
-	Timer timer;
-	Random random;
+	/*@ spec_public*/ Timer timer;
+	/*@ spec_public*/ Random random;
 	
 	// invariants:
 	// x not null and length x[] == GAME_UNITS
@@ -42,6 +42,7 @@ public class SnakePanel_V extends JPanel implements ActionListener{
 	// direction = 'U' or 'D' or 'R' or 'L'
 	//@ public invariant direction =='U' || direction =='D' || direction =='R' || direction =='L';
 	
+	//@ ensures random!=null;
 	SnakePanel_V(){
 		random = new Random();
 		this.setPreferredSize(new Dimension(SCREEN_WIDTH,SCREEN_HEIGHT));
@@ -50,6 +51,8 @@ public class SnakePanel_V extends JPanel implements ActionListener{
 		startGame();
 	}
 	
+	//@ ensures running;
+	//@ ensures timer != null;
 	public void startGame() {
 		firstApple(); // for testing purposes only
 		//newApple();
@@ -58,12 +61,16 @@ public class SnakePanel_V extends JPanel implements ActionListener{
 		timer.start();
 	}
 	
+	
+	//@ also requires g!= null;
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		draw(g);
 	}
 	
-	public void draw(Graphics g) {
+	//@ requires g!= null;
+	//@ ensures running <==> \result;
+	public boolean draw(Graphics g) {
 		
 		if(running) {
 			
@@ -85,19 +92,25 @@ public class SnakePanel_V extends JPanel implements ActionListener{
 			g.setFont( new Font("Bernard MT Condensed",Font.BOLD, 40));
 			FontMetrics metrics = getFontMetrics(g.getFont());
 			g.drawString("Score: "+applesEaten, (SCREEN_WIDTH - metrics.stringWidth("Score: "+applesEaten))/2, g.getFont().getSize());
+			return true;
 		}
 		else {
 			gameOver(g);
+			return false;
 		}
 		
 	}
 	
 	// for testing purposes only
+	//@ ensures appleX == 1*UNIT_SIZE;
+	//@ ensures appleY == 0*UNIT_SIZE;
 	public void firstApple() {
 		appleX = 1*UNIT_SIZE;
 		appleY = 0*UNIT_SIZE;
 	}
 	
+	//@ ensures appleX >= 0 && appleX <= (SCREEN_WIDTH/UNIT_SIZE)*UNIT_SIZE;
+	//@ ensures appleY >= 0 && appleY <= (SCREEN_WIDTH/UNIT_SIZE)*UNIT_SIZE;
 	public void newApple(){
 		appleX = random.nextInt((int)(SCREEN_WIDTH/UNIT_SIZE))*UNIT_SIZE;
 		appleY = random.nextInt((int)(SCREEN_HEIGHT/UNIT_SIZE))*UNIT_SIZE;
@@ -108,6 +121,11 @@ public class SnakePanel_V extends JPanel implements ActionListener{
 	//@ ensures (\forall int j; j> 0 && j <= bodyParts; x[j] == \old(x[j-1]));
 	// y[i] = y[i-1] for (i = bodyParts;i>0;i--)
 	//@ ensures (\forall int j; j> 0 && j <= bodyParts; y[j] == \old(y[j-1]));
+	// switch direction
+	//@ ensures (direction=='U') ==> (y[0] == (\old(y[0]) - UNIT_SIZE));
+	//@ ensures (direction=='D') ==> (y[0] == (\old(y[0]) + UNIT_SIZE));
+	//@ ensures (direction=='L') ==> (x[0] == (\old(x[0]) - UNIT_SIZE));
+	//@ ensures (direction=='R') ==> (x[0] == (\old(x[0]) + UNIT_SIZE));
 	public void move(){
 		
 		//@ loop_invariant i>=0 && i<=bodyParts;
@@ -181,6 +199,8 @@ public class SnakePanel_V extends JPanel implements ActionListener{
 		}
 	}
 	
+	//@ requires g != null;
+	//@ ensures score == applesEaten; 
 	public void gameOver(Graphics g) {
 		//Score
 		score = applesEaten;
@@ -214,6 +234,10 @@ public class SnakePanel_V extends JPanel implements ActionListener{
 	// postconditions:
 	// direction = 'U' or 'D' or 'R' or 'L'
 	//@ ensures direction =='L' || direction =='R' || direction =='U' || direction =='D';
+	//@ ensures (d == 'L' && \old(direction) != 'R') <==> direction == 'L';
+	//@ ensures (d == 'R' && \old(direction) != 'L') <==> direction == 'R';
+	//@ ensures (d == 'U' && \old(direction) != 'D') <==> direction == 'U';
+	//@ ensures (d == 'D' && \old(direction) != 'U') <==> direction == 'D';
 	public void setDirection(char d) {
 		switch(d) {
 		case 'L':
