@@ -1,7 +1,0 @@
-Model Snake
- Parameters:
-   Direction: {UP, DOWN, LEFT, RIGHT}
-   Snake: {MOVE, EAT, CRASH_WALL, HIT_BODY}
-   Status: {SET_UP, IN_GAME, GAME_OVER}
-
- Constraints:
